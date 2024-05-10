@@ -5,19 +5,6 @@ import Navbar from "../components/Navbar";
 function Home() {
   // write switch statement to determine which component to render based on url location
 
-  switch (window.location.pathname) {
-    case "/":
-      return <Home />;
-    case "/login":
-      return <Login />;
-    case "/teacher":
-      return <TeacherPortal />;
-    case "/student":
-      return <StudentPortal />;
-    default:
-      return <Home />;
-  }
-
   return (
     <>
       <Navbar />
