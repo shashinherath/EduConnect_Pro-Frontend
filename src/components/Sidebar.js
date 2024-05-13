@@ -213,7 +213,7 @@ export default function Example() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src=""
                         alt=""
                       />
                     </Menu.Button>
@@ -254,15 +254,11 @@ export default function Example() {
             <div className="py-6">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                 <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
+                  EduConnect Pro
                 </h1>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                {/* Replace with your content */}
-                <div className="py-4">
-                  <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
-                </div>
-                {/* /End replace */}
+                {/* The content */}
               </div>
             </div>
           </main>
