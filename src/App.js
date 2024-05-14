@@ -16,7 +16,9 @@ function App() {
           <Route path="login" element={<Login />} />
         </Route>
         <Route path="/teacher" element={<TeacherPortal />} />
-        <Route path="/student" element={<StudentPortal />} />
+        <Route path="/student" element={<StudentPortal />} >
+          
+        </Route>
       </Routes>
     </div>
   );
