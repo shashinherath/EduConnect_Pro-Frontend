@@ -6,6 +6,7 @@ import TeacherPortal from "./pages/TeacherPortal";
 import StudentPortal from "./pages/StudentPortal";
 import Login from "./components/Login";
 import HomeContent from "./components/HomeContent";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   return (
@@ -16,9 +17,8 @@ function App() {
           <Route path="login" element={<Login />} />
         </Route>
         <Route path="/teacher" element={<TeacherPortal />} />
-        <Route path="/student" element={<StudentPortal />} >
-          
-        </Route>
+        <Route path="/student" element={<StudentPortal />}></Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
