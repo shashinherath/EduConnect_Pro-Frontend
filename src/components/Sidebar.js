@@ -15,11 +15,11 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "AI Portal", href: "#", icon: UsersIcon, current: false },
+  { name: "Courses", href: "#", icon: UsersIcon, current: false },
   { name: "Message", href: "#", icon: FolderIcon, current: false },
-  { name: "", href: "#", icon: CalendarIcon, current: false },
-  { name: "", href: "#", icon: InboxIcon, current: false },
-  { name: "", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Medical Submission", href: "#", icon: CalendarIcon, current: false },
+  { name: "AI Portal", href: "#", icon: InboxIcon, current: false },
+  { name: "Feedback Forum", href: "#", icon: ChartBarIcon, current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -211,11 +211,7 @@ export default function Example() {
                   <div>
                     <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src=""
-                        alt=""
-                      />
+                      <img className="h-8 w-8 rounded-full" src="" alt="" />
                     </Menu.Button>
                   </div>
                   <Transition
