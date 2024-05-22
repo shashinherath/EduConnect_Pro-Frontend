@@ -19,7 +19,7 @@ const navigation = [
   { name: "Message", href: "#", icon: FolderIcon, current: false },
   { name: "Medical Submission", href: "#", icon: CalendarIcon, current: false },
   { name: "AI Portal", href: "#", icon: InboxIcon, current: false },
-  { name: "Feedback Forum", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Feedback", href: "#", icon: ChartBarIcon, current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
