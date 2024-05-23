@@ -21,7 +21,7 @@ function App() {
         </Route>
         <Route path="/teacher" element={<TeacherPortal />} />
         <Route path="/student" element={<StudentPortal />}>
-          <Route path="/student/calendar" element={<Calendar />} />
+          <Route path="calendar" element={<Calendar />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

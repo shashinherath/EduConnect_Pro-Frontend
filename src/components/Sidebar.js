@@ -12,7 +12,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "/student", icon: HomeIcon, current: true },
@@ -96,9 +96,9 @@ export default function Sidebar() {
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav className="space-y-1 px-2">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "bg-gray-900 text-white"
@@ -116,7 +116,7 @@ export default function Sidebar() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </nav>
                   </div>
@@ -139,9 +139,9 @@ export default function Sidebar() {
             <div className="flex flex-1 flex-col overflow-y-auto">
               <nav className="flex-1 space-y-1 px-2 py-4">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"
@@ -159,7 +159,7 @@ export default function Sidebar() {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
