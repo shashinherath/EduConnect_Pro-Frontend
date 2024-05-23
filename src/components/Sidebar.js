@@ -12,14 +12,15 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { Outlet } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
+  { name: "Dashboard", href: "/student", icon: HomeIcon, current: true },
   { name: "Courses", href: "#", icon: UsersIcon, current: false },
   { name: "Message", href: "#", icon: FolderIcon, current: false },
   { name: "Medical Submission", href: "#", icon: CalendarIcon, current: false },
   { name: "AI Portal", href: "#", icon: InboxIcon, current: false },
-  { name: "Feedback", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Calender", href: "/student/calendar", icon: ChartBarIcon, current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -254,7 +255,7 @@ export default function Example() {
                 </h1>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                {/* The content */}
+                <Outlet />
               </div>
             </div>
           </main>

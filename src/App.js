@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import HomeContent from "./components/HomeContent";
 import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
+import Calendar from "./components/Calendar";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
           <Route path="about" element={<About />} />
         </Route>
         <Route path="/teacher" element={<TeacherPortal />} />
-        <Route path="/student" element={<StudentPortal />}></Route>
+        <Route path="/student" element={<StudentPortal />}>
+          <Route path="/student/calendar" element={<Calendar />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
