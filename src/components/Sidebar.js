@@ -1,21 +1,11 @@
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3BottomLeftIcon,
-  BellIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3BottomLeftIcon, BellIcon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XMarkIcon, } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "/student", icon: HomeIcon, current: true },
+  { name: "Dashboard", href: "/student", icon: HomeIcon, current: false },
   { name: "Courses", href: "#", icon: UsersIcon, current: false },
   { name: "Message", href: "#", icon: FolderIcon, current: false },
   { name: "Medical Submission", href: "#", icon: CalendarIcon, current: false },
@@ -34,6 +24,17 @@ function classNames(...classes) {
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const location = useLocation();
+
+  const isCurrentRoute = (href) => {
+    return location.pathname === href;
+  };
+
+  const updatedNavigation = navigation.map((item) => ({
+    ...item,
+    current: isCurrentRoute(item.href),
+  }));
 
   return (
     <>
@@ -95,7 +96,7 @@ export default function Sidebar() {
                   </div>
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav className="space-y-1 px-2">
-                      {navigation.map((item) => (
+                      {updatedNavigation.map((item) => (
                         <Link
                           key={item.name}
                           to={item.href}
@@ -138,7 +139,7 @@ export default function Sidebar() {
             </div>
             <div className="flex flex-1 flex-col overflow-y-auto">
               <nav className="flex-1 space-y-1 px-2 py-4">
-                {navigation.map((item) => (
+                {updatedNavigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
