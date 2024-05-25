@@ -15,8 +15,7 @@ function HomeContent() {
           all over the world. We provide a safe and secure environment for
           students to learn and teachers to teach. Our platform is easy to use
           and we have a dedicated team of professionals to help you with any
-          questions you may have. Sign up today and start learning or teaching
-          with EduConnect Pro!
+          questions you may have.
         </p>
       </div>
     </div>
