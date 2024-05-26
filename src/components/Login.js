@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "./H_Navbar";
+import Footer from "./H_Footer";
 
 function Login() {
   return (
