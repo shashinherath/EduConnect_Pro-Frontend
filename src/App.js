@@ -5,10 +5,13 @@ import Home from "./pages/Home";
 import TeacherPortal from "./pages/TeacherPortal";
 import StudentPortal from "./pages/StudentPortal";
 import Login from "./components/Login";
-import HomeContent from "./components/HomeContent";
+import HomeContent from "./components/H_Content";
 import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
 import Calendar from "./components/Calendar";
+import Admin from "./pages/Admin";
+import Ad_Login from "./components/Ad_Login";
+import Ad_Dashboard from "./components/Ad_Dashboard";
 
 function App() {
   return (
@@ -22,6 +25,10 @@ function App() {
         <Route path="/teacher" element={<TeacherPortal />} />
         <Route path="/student" element={<StudentPortal />}>
           <Route path="calendar" element={<Calendar />} />
+        </Route>
+        <Route path="/admin" element={<Admin />} >
+          <Route index element={<Ad_Login />} />
+          <Route path="dashboard" element={<Ad_Dashboard />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
