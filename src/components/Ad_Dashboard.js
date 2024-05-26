@@ -10,7 +10,7 @@ import {
   UsersIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, current: false },
@@ -96,9 +96,9 @@ export default function Ad_Dashboard() {
                     </div>
                     <nav className="mt-5 space-y-1 px-2">
                       {updatedNavigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? 'bg-gray-200 text-gray-900'
@@ -114,7 +114,7 @@ export default function Ad_Dashboard() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </nav>
                   </div>
@@ -156,9 +156,9 @@ export default function Ad_Dashboard() {
               </div>
               <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
                 {updatedNavigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -172,7 +172,7 @@ export default function Ad_Dashboard() {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
