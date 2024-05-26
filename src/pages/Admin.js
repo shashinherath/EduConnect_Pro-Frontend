@@ -1,14 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import Ad_Login from '../components/Ad_Login'
+import { Outlet } from 'react-router-dom'
 
-export const Admin = (props) => {
+function Admin() {
   return (
-    <div>Admin</div>
+    <Outlet />
   )
 }
 
-const mapStateToProps = (state) => ({})
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Admin)
+export default Admin
