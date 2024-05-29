@@ -27,7 +27,7 @@ export default function Ad_Dashboard_Main() {
               <div className="absolute rounded-md bg-indigo-500 p-3">
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
-              <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
+              <p className="ml-16 truncate text-sm font-medium text-gray-500 text-left">{item.name}</p>
             </dt>
             <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
               <p className="text-2xl font-semibold text-gray-900">{item.stat}</p>
