@@ -63,6 +63,9 @@ export default function Ad_Admins() {
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <span className="sr-only">Edit</span>
                     </th>
+                    <th scope="col" className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <span className="sr-only">Delete</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
@@ -92,6 +95,11 @@ export default function Ad_Admins() {
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <a href="#" className="text-indigo-600 hover:text-indigo-900">
                           Edit<span className="sr-only">, {person.name}</span>
+                        </a>
+                      </td>
+                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                        <a href="#" className="text-red-600 hover:text-red-900">
+                          Delete<span className="sr-only">, {person.name}</span>
                         </a>
                       </td>
                     </tr>
