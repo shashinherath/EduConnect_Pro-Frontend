@@ -18,7 +18,7 @@ export default function Ad_Lecturers() {
       try {
         const token = '64e2fa0893bcea3fc4a6e48cd2f5a6ec5d68e3fd';
         
-        const response = await axios.get('http://localhost:8000/api/lecturer/', {
+        const response = await axios.get('http://localhost:8000/api/main/lecturer/', {
           headers: {
             'Authorization': `Token ${token}`
           }
