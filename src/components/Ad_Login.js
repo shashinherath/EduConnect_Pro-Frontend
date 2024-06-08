@@ -1,6 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function Ad_Login() {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post('http://127.0.0.1:8000/api/admin/login/', {
+              username,
+              password
+          });
+          localStorage.setItem('token', response.data.token);
+          setError('');
+          setIsAuthenticated(true);
+          navigate('/admin/dashboard');
+      } catch (error) {
+          setError('Invalid Credentials');
+      }
+  };
+
+
   return (
     <div className="flex min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-100">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -15,7 +42,7 @@ function Ad_Login() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 text-left">
                   Email address
@@ -24,7 +51,9 @@ function Ad_Login() {
                   <input
                     id="email"
                     name="email"
-                    type="email"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     autoComplete="email"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -48,6 +77,8 @@ function Ad_Login() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -62,6 +93,7 @@ function Ad_Login() {
                 >
                   Log in
                 </button>
+                {error && <p>{error}</p>}
               </div>
             </form>
   
