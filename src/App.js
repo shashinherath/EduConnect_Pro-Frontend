@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import LecturerPortal from "./pages/LecturerPortal";
 import StudentPortal from "./pages/StudentPortal";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import HomeContent from "./components/H_Content";
 import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
@@ -25,9 +25,11 @@ function App() {
         {/* Home */}
         <Route path="/" element={<Home />}>
           <Route index element={<HomeContent />} />
-          <Route path="login" element={<Login />} />
           <Route path="about" element={<About />} />
         </Route>
+
+        {/* Login */}
+        <Route path="login" element={<Login />} />
 
         {/* Lecturer */}
         <Route path="/lecturer" element={<LecturerPortal />} />
