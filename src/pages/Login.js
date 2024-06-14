@@ -1,6 +1,39 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post('http://127.0.0.1:8000/api/login', {
+              username,
+              password
+          });
+          localStorage.setItem('token', response.data.token);
+          setError('');
+          if (response.data.user_type == 1) {
+              navigate('/admin/dashboard');
+          }
+          else if (response.data.user_type == 2) {
+              navigate('/lecturer');
+          }
+          else {
+              navigate('/student');
+          }
+      } catch (error) {
+          setError('Invalid Credentials');
+      }
+  };
+
   return (
     <div className="flex min-h-screen">
       <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:w-1/2 lg:flex-none lg:px-20 xl:px-24">
@@ -83,7 +116,7 @@ export default function Login() {
             </div>
 
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
+              <form action="#" method="POST" className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                     Email address
@@ -92,7 +125,9 @@ export default function Login() {
                     <input
                       id="email"
                       name="email"
-                      type="email"
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       autoComplete="email"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -109,6 +144,8 @@ export default function Login() {
                       id="password"
                       name="password"
                       type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="current-password"
                       required
                       className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
