@@ -29,6 +29,7 @@ function App() {
         </Route>
 
         {/* Login */}
+        
         <Route path="login" element={<Login />} />
 
         {/* Lecturer */}
