@@ -10,7 +10,6 @@ import PageNotFound from "./components/PageNotFound";
 import About from "./components/About";
 import Calendar from "./components/Calendar";
 import Admin from "./pages/Admin";
-import Ad_Login from "./components/Ad_Login";
 import Ad_Dashboard from "./components/Ad_Dashboard";
 import Ad_Dashboard_Main from "./components/Ad_Dashboard_Main";
 import Ad_Lectures from "./components/Ad_Lecturers";
@@ -42,7 +41,7 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin" element={<Admin />} >
-          <Route index element={<Ad_Login />} />
+          <Route index element={<Ad_Dashboard />} />
           <Route path="dashboard" element={<Ad_Dashboard />} >
             <Route index element={<Ad_Dashboard_Main />} />
             <Route path="admins" element={<Ad_Admins />} />
