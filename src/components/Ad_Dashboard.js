@@ -12,7 +12,9 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, current: false },
@@ -34,17 +36,25 @@ function classNames(...classes) {
 
 export default function Ad_Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [pageTitle, setPageTitle] = useState('');
 
   const location = useLocation();
+
+  useEffect(() => {
+    const currentRoute = navigation.find((item) => item.href === location.pathname);
+    setPageTitle(currentRoute ? currentRoute.name : '');
+  }, [location]);
 
   const isCurrentRoute = (href) => {
     return location.pathname === href;
   };
 
-  const updatedNavigation = navigation.map((item) => ({
-    ...item,
-    current: isCurrentRoute(item.href),
-  }));
+  const updatedNavigation = navigation.map((item) => {
+    return {
+      ...item,
+      current: isCurrentRoute(item.href),
+    };
+  });
 
   return (
     <>
@@ -254,10 +264,10 @@ export default function Ad_Dashboard() {
             </div>
           </div>
 
-          <main className="flex-1 min-h-svh bg-gray-200">
+          <main className="flex-1 min-h-screen bg-gray-200">
             <div className="py-6">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+                <h1 className="text-3xl font-semibold text-gray-900 text-left">{pageTitle}</h1>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                 {/* Replace with your content */}
