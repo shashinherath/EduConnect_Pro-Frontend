@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Admin() {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (window.location.pathname === '/admin') {
       navigate('/admin/dashboard');
