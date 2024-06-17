@@ -49,7 +49,6 @@ function App() {
             <Route path="lecturers" element={<Ad_Lectures />} />
             <Route path="students" element={<Ad_Students />} />
             <Route path="courses" element={<Ad_Courses />} />
-            <Route path="admins/add" element={<Ad_Admins_Add_Form />} />
           </Route>
         </Route>
 
