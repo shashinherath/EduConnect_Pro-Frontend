@@ -18,6 +18,15 @@ export default function Ad_Admins() {
   const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [people, setPeople] = useState([]);
+  const [userDelete, setUserDelete] = useState("");
+
+  const [username, setUsername] = useState("");
+  const [first_name, setFirst_name] = useState("");
+  const [last_name, setLast_name] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profile_pic, setProfile_pic] = useState("");
+
   const token = localStorage.getItem("token");
   const backendUrl = "http://127.0.0.1:8000";
 
@@ -41,8 +50,52 @@ export default function Ad_Admins() {
     fetchData();
   }, []);
 
-  const handleDelete = (e) => {
+  const handleDeleteDialog = (e) => {
     setOpenDialog(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        "http://127.0.0.1:8000/api/admin_detail/" + userDelete,
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setUserDelete("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePostData = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/admin_add",
+        {
+          admin: {
+            username: username,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            password: password,
+            user_type: 1,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -157,7 +210,10 @@ export default function Ad_Admins() {
                         <a
                           href="#"
                           className="text-red-600 hover:text-red-900"
-                          onClick={handleDelete}
+                          onClick={() => {
+                            setUserDelete(person.id);
+                            handleDeleteDialog();
+                          }}
                         >
                           Delete<span className="sr-only">, {person.name}</span>
                         </a>
@@ -217,21 +273,40 @@ export default function Ad_Admins() {
                     </TransitionChild>
                     <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                       <div className="px-4 sm:px-6">
-                        <DialogTitle className="text-base font-semibold leading-6 text-gray-900">
-                          Add an admin
+                        <DialogTitle className="text-base leading-6 text-gray-900">
+                          <h2 className="text-base font-semibold leading-7 text-gray-900">
+                            Add an admin
+                          </h2>
+                          <p className="mt-1 text-sm leading-6 text-gray-600">
+                            This information will be displayed publicly so be
+                            careful what you share.
+                          </p>
                         </DialogTitle>
                       </div>
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                        <form>
+                        <form onClick={handlePostData}>
                           <div className="space-y-12">
                             <div className="border-b border-gray-900/10 pb-12">
-                              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                                Profile
-                              </h2>
-                              <p className="mt-1 text-sm leading-6 text-gray-600">
-                                This information will be displayed publicly so
-                                be careful what you share.
-                              </p>
+                              <div className="col-span-full">
+                                <label
+                                  htmlFor="photo"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                  Photo
+                                </label>
+                                <div className="mt-2 flex items-center gap-x-3">
+                                  <UserCircleIcon
+                                    className="h-12 w-12 text-gray-300"
+                                    aria-hidden="true"
+                                  />
+                                  <button
+                                    type="button"
+                                    className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                  >
+                                    Choose
+                                  </button>
+                                </div>
+                              </div>
 
                               <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-4">
@@ -244,12 +319,16 @@ export default function Ad_Admins() {
                                   <div className="mt-2">
                                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                       <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                                        workcation.com/
+                                        educonnectpro.com/
                                       </span>
                                       <input
                                         type="text"
                                         name="username"
                                         id="username"
+                                        value={username}
+                                        onChange={(e) =>
+                                          setUsername(e.target.value)
+                                        }
                                         autoComplete="username"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                         placeholder="janesmith"
@@ -258,95 +337,6 @@ export default function Ad_Admins() {
                                   </div>
                                 </div>
 
-                                <div className="col-span-full">
-                                  <label
-                                    htmlFor="about"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    About
-                                  </label>
-                                  <div className="mt-2">
-                                    <textarea
-                                      id="about"
-                                      name="about"
-                                      rows={3}
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                      defaultValue={""}
-                                    />
-                                  </div>
-                                  <p className="mt-3 text-sm leading-6 text-gray-600">
-                                    Write a few sentences about yourself.
-                                  </p>
-                                </div>
-
-                                <div className="col-span-full">
-                                  <label
-                                    htmlFor="photo"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    Photo
-                                  </label>
-                                  <div className="mt-2 flex items-center gap-x-3">
-                                    <UserCircleIcon
-                                      className="h-12 w-12 text-gray-300"
-                                      aria-hidden="true"
-                                    />
-                                    <button
-                                      type="button"
-                                      className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                    >
-                                      Change
-                                    </button>
-                                  </div>
-                                </div>
-
-                                <div className="col-span-full">
-                                  <label
-                                    htmlFor="cover-photo"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    Cover photo
-                                  </label>
-                                  <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                    <div className="text-center">
-                                      <PhotoIcon
-                                        className="mx-auto h-12 w-12 text-gray-300"
-                                        aria-hidden="true"
-                                      />
-                                      <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                                        <label
-                                          htmlFor="file-upload"
-                                          className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                                        >
-                                          <span>Upload a file</span>
-                                          <input
-                                            id="file-upload"
-                                            name="file-upload"
-                                            type="file"
-                                            className="sr-only"
-                                          />
-                                        </label>
-                                        <p className="pl-1">or drag and drop</p>
-                                      </div>
-                                      <p className="text-xs leading-5 text-gray-600">
-                                        PNG, JPG, GIF up to 10MB
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="border-b border-gray-900/10 pb-12">
-                              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                                Personal Information
-                              </h2>
-                              <p className="mt-1 text-sm leading-6 text-gray-600">
-                                Use a permanent address where you can receive
-                                mail.
-                              </p>
-
-                              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
                                   <label
                                     htmlFor="first-name"
@@ -359,6 +349,10 @@ export default function Ad_Admins() {
                                       type="text"
                                       name="first-name"
                                       id="first-name"
+                                      value={first_name}
+                                      onChange={(e) =>
+                                        setFirst_name(e.target.value)
+                                      }
                                       autoComplete="given-name"
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
@@ -377,6 +371,10 @@ export default function Ad_Admins() {
                                       type="text"
                                       name="last-name"
                                       id="last-name"
+                                      value={last_name}
+                                      onChange={(e) =>
+                                        setLast_name(e.target.value)
+                                      }
                                       autoComplete="family-name"
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
@@ -395,244 +393,35 @@ export default function Ad_Admins() {
                                       id="email"
                                       name="email"
                                       type="email"
+                                      value={email}
+                                      onChange={(e) => setEmail(e.target.value)}
                                       autoComplete="email"
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                   </div>
                                 </div>
 
-                                <div className="sm:col-span-3">
+                                <div className="sm:col-span-4">
                                   <label
-                                    htmlFor="country"
+                                    htmlFor="password"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Country
-                                  </label>
-                                  <div className="mt-2">
-                                    <select
-                                      id="country"
-                                      name="country"
-                                      autoComplete="country-name"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                    >
-                                      <option>United States</option>
-                                      <option>Canada</option>
-                                      <option>Mexico</option>
-                                    </select>
-                                  </div>
-                                </div>
-
-                                <div className="col-span-full">
-                                  <label
-                                    htmlFor="street-address"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    Street address
+                                    Password
                                   </label>
                                   <div className="mt-2">
                                     <input
-                                      type="text"
-                                      name="street-address"
-                                      id="street-address"
-                                      autoComplete="street-address"
+                                      id="password"
+                                      name="pasword"
+                                      type="password"
+                                      value={password}
+                                      onChange={(e) =>
+                                        setPassword(e.target.value)
+                                      }
+                                      autoComplete="password"
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
                                   </div>
                                 </div>
-
-                                <div className="sm:col-span-2 sm:col-start-1">
-                                  <label
-                                    htmlFor="city"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    City
-                                  </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="city"
-                                      id="city"
-                                      autoComplete="address-level2"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                  </div>
-                                </div>
-
-                                <div className="sm:col-span-2">
-                                  <label
-                                    htmlFor="region"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    State / Province
-                                  </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="region"
-                                      id="region"
-                                      autoComplete="address-level1"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                  </div>
-                                </div>
-
-                                <div className="sm:col-span-2">
-                                  <label
-                                    htmlFor="postal-code"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
-                                  >
-                                    ZIP / Postal code
-                                  </label>
-                                  <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="postal-code"
-                                      id="postal-code"
-                                      autoComplete="postal-code"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="border-b border-gray-900/10 pb-12">
-                              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                                Notifications
-                              </h2>
-                              <p className="mt-1 text-sm leading-6 text-gray-600">
-                                We'll always let you know about important
-                                changes, but you pick what else you want to hear
-                                about.
-                              </p>
-
-                              <div className="mt-10 space-y-10">
-                                <fieldset>
-                                  <legend className="text-sm font-semibold leading-6 text-gray-900">
-                                    By Email
-                                  </legend>
-                                  <div className="mt-6 space-y-6">
-                                    <div className="relative flex gap-x-3">
-                                      <div className="flex h-6 items-center">
-                                        <input
-                                          id="comments"
-                                          name="comments"
-                                          type="checkbox"
-                                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        />
-                                      </div>
-                                      <div className="text-sm leading-6">
-                                        <label
-                                          htmlFor="comments"
-                                          className="font-medium text-gray-900"
-                                        >
-                                          Comments
-                                        </label>
-                                        <p className="text-gray-500">
-                                          Get notified when someones posts a
-                                          comment on a posting.
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="relative flex gap-x-3">
-                                      <div className="flex h-6 items-center">
-                                        <input
-                                          id="candidates"
-                                          name="candidates"
-                                          type="checkbox"
-                                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        />
-                                      </div>
-                                      <div className="text-sm leading-6">
-                                        <label
-                                          htmlFor="candidates"
-                                          className="font-medium text-gray-900"
-                                        >
-                                          Candidates
-                                        </label>
-                                        <p className="text-gray-500">
-                                          Get notified when a candidate applies
-                                          for a job.
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div className="relative flex gap-x-3">
-                                      <div className="flex h-6 items-center">
-                                        <input
-                                          id="offers"
-                                          name="offers"
-                                          type="checkbox"
-                                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                        />
-                                      </div>
-                                      <div className="text-sm leading-6">
-                                        <label
-                                          htmlFor="offers"
-                                          className="font-medium text-gray-900"
-                                        >
-                                          Offers
-                                        </label>
-                                        <p className="text-gray-500">
-                                          Get notified when a candidate accepts
-                                          or rejects an offer.
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </fieldset>
-                                <fieldset>
-                                  <legend className="text-sm font-semibold leading-6 text-gray-900">
-                                    Push Notifications
-                                  </legend>
-                                  <p className="mt-1 text-sm leading-6 text-gray-600">
-                                    These are delivered via SMS to your mobile
-                                    phone.
-                                  </p>
-                                  <div className="mt-6 space-y-6">
-                                    <div className="flex items-center gap-x-3">
-                                      <input
-                                        id="push-everything"
-                                        name="push-notifications"
-                                        type="radio"
-                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                      />
-                                      <label
-                                        htmlFor="push-everything"
-                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                      >
-                                        Everything
-                                      </label>
-                                    </div>
-                                    <div className="flex items-center gap-x-3">
-                                      <input
-                                        id="push-email"
-                                        name="push-notifications"
-                                        type="radio"
-                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                      />
-                                      <label
-                                        htmlFor="push-email"
-                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                      >
-                                        Same as email
-                                      </label>
-                                    </div>
-                                    <div className="flex items-center gap-x-3">
-                                      <input
-                                        id="push-nothing"
-                                        name="push-notifications"
-                                        type="radio"
-                                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                      />
-                                      <label
-                                        htmlFor="push-nothing"
-                                        className="block text-sm font-medium leading-6 text-gray-900"
-                                      >
-                                        No push notifications
-                                      </label>
-                                    </div>
-                                  </div>
-                                </fieldset>
                               </div>
                             </div>
                           </div>
@@ -641,6 +430,7 @@ export default function Ad_Admins() {
                             <button
                               type="button"
                               className="text-sm font-semibold leading-6 text-gray-900"
+                              onClick={() => setOpen(false)}
                             >
                               Cancel
                             </button>
@@ -716,7 +506,10 @@ export default function Ad_Admins() {
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                      onClick={() => setOpenDialog(false)}
+                      onClick={() => {
+                        setOpenDialog(false);
+                        handleDelete();
+                      }}
                     >
                       Deactivate
                     </button>
