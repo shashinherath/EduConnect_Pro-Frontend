@@ -16,7 +16,7 @@ import Ad_Lectures from "./components/Ad_Lecturers";
 import Ad_Students from "./components/Ad_Students";
 import Ad_Admins from "./components/Ad_Admins";
 import Ad_Courses from "./components/Ad_Courses";
-import Ad_Admins_Add_Form from "./components/Ad_Admins_Add_Form";
+
 
 function App() {
   return (
@@ -34,16 +34,16 @@ function App() {
 
         {/* Lecturer */}
         <Route path="/lecturer" element={<LecturerPortal />} />
-          
+
         {/* Student */}
         <Route path="/student" element={<StudentPortal />}>
           <Route path="calendar" element={<Calendar />} />
         </Route>
 
         {/* Admin */}
-        <Route path="/admin" element={<Admin />} >
+        <Route path="/admin" element={<Admin />}>
           <Route index element={<Ad_Dashboard />} />
-          <Route path="dashboard" element={<Ad_Dashboard />} >
+          <Route path="dashboard" element={<Ad_Dashboard />}>
             <Route index element={<Ad_Dashboard_Main />} />
             <Route path="admins" element={<Ad_Admins />} />
             <Route path="lecturers" element={<Ad_Lectures />} />
