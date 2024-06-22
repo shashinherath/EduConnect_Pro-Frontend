@@ -1,5 +1,5 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3BottomLeftIcon,
   BellIcon,
@@ -10,39 +10,68 @@ import {
   InboxIcon,
   UsersIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Link, Outlet } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useSearch } from "./SearchContext";
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, current: false },
-  { name: 'Admins', href: '/admin/dashboard/admins', icon: UsersIcon, current: false },
-  { name: 'Lecturers', href: '/admin/dashboard/lecturers', icon: FolderIcon, current: false },
-  { name: 'Students', href: '/admin/dashboard/students', icon: CalendarIcon, current: false },
-  { name: 'Courses', href: '/admin/dashboard/courses', icon: InboxIcon, current: false },
-]
+  {
+    name: "Dashboard",
+    href: "/admin/dashboard",
+    icon: HomeIcon,
+    current: false,
+  },
+  {
+    name: "Admins",
+    href: "/admin/dashboard/admins",
+    icon: UsersIcon,
+    current: false,
+  },
+  {
+    name: "Lecturers",
+    href: "/admin/dashboard/lecturers",
+    icon: FolderIcon,
+    current: false,
+  },
+  {
+    name: "Students",
+    href: "/admin/dashboard/students",
+    icon: CalendarIcon,
+    current: false,
+  },
+  {
+    name: "Courses",
+    href: "/admin/dashboard/courses",
+    icon: InboxIcon,
+    current: false,
+  },
+];
 
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+  { name: "Your Profile", href: "#" },
+  { name: "Settings", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Ad_Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [pageTitle, setPageTitle] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [pageTitle, setPageTitle] = useState("");
+  const { searchQuery, setSearchQuery } = useSearch();
 
   const location = useLocation();
 
   useEffect(() => {
-    const currentRoute = navigation.find((item) => item.href === location.pathname);
-    setPageTitle(currentRoute ? currentRoute.name : '');
+    const currentRoute = navigation.find(
+      (item) => item.href === location.pathname
+    );
+    setPageTitle(currentRoute ? currentRoute.name : "");
   }, [location]);
 
   const isCurrentRoute = (href) => {
@@ -60,7 +89,11 @@ export default function Ad_Dashboard() {
     <>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
+          <Dialog
+            as="div"
+            className="relative z-40 md:hidden"
+            onClose={setSidebarOpen}
+          >
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -100,7 +133,10 @@ export default function Ad_Dashboard() {
                         onClick={() => setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
-                        <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                        <XMarkIcon
+                          className="h-6 w-6 text-white"
+                          aria-hidden="true"
+                        />
                       </button>
                     </div>
                   </Transition.Child>
@@ -119,15 +155,17 @@ export default function Ad_Dashboard() {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "group flex items-center px-2 py-2 text-base font-medium rounded-md"
                           )}
                         >
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
-                              'mr-4 flex-shrink-0 h-6 w-6'
+                              item.current
+                                ? "text-gray-300"
+                                : "text-gray-400 group-hover:text-gray-300",
+                              "mr-4 flex-shrink-0 h-6 w-6"
                             )}
                             aria-hidden="true"
                           />
@@ -163,14 +201,18 @@ export default function Ad_Dashboard() {
                     key={item.name}
                     to={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                     )}
                   >
                     <item.icon
                       className={classNames(
-                        item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
-                        'mr-3 flex-shrink-0 h-6 w-6'
+                        item.current
+                          ? "text-gray-300"
+                          : "text-gray-400 group-hover:text-gray-300",
+                        "mr-3 flex-shrink-0 h-6 w-6"
                       )}
                       aria-hidden="true"
                     />
@@ -199,7 +241,10 @@ export default function Ad_Dashboard() {
                   </label>
                   <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                      <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
+                      <MagnifyingGlassIcon
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                      />
                     </div>
                     <input
                       id="search-field"
@@ -207,6 +252,14 @@ export default function Ad_Dashboard() {
                       placeholder="Search"
                       type="search"
                       name="search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      // disable the enter key press submit
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                        }
+                      }}
                     />
                   </div>
                 </form>
@@ -248,8 +301,8 @@ export default function Ad_Dashboard() {
                             <a
                               href={item.href}
                               className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               {item.name}
@@ -267,7 +320,9 @@ export default function Ad_Dashboard() {
           <main className="flex-1 min-h-screen bg-gray-200">
             <div className="py-6">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-3xl font-semibold text-gray-900 text-left">{pageTitle}</h1>
+                <h1 className="text-3xl font-semibold text-gray-900 text-left">
+                  {pageTitle}
+                </h1>
               </div>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
                 {/* Replace with your content */}
@@ -279,5 +334,5 @@ export default function Ad_Dashboard() {
         </div>
       </div>
     </>
-  )
+  );
 }
