@@ -70,7 +70,7 @@ export default function Ad_Admins() {
   useEffect(() => {
     setPeople(
       allPeople.filter((person) => {
-        if (searchQuery === undefined) {
+        if (searchQuery === "") {
           return true;
         } else {
           return (
