@@ -13,12 +13,15 @@ import {
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useSearch } from "./SearchContext";
 
 export default function Ad_Admins() {
+  const { searchQuery } = useSearch();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [people, setPeople] = useState([]);
+  const [allPeople, setAllPeople] = useState([]);
   const [userId, setuserId] = useState("");
   const [refresh, setRefresh] = useState(false);
 
@@ -55,7 +58,7 @@ export default function Ad_Admins() {
             Authorization: `Token ${token}`,
           },
         });
-        setPeople(response.data);
+        setAllPeople(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -63,6 +66,28 @@ export default function Ad_Admins() {
 
     fetchData();
   }, [refresh]);
+
+  useEffect(() => {
+    setPeople(
+      allPeople.filter((person) => {
+        if (searchQuery === undefined) {
+          return true;
+        } else {
+          return (
+            person.admin.first_name
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            person.admin.last_name
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            person.admin.email
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase())
+          );
+        }
+      })
+    );
+  }, [searchQuery, allPeople]);
 
   const handleDeleteDialog = (e) => {
     setOpenDialog(true);
