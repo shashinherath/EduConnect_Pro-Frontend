@@ -4,6 +4,7 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Hero_video from '../assets/Hero.mp4'
 import { Link } from 'react-router-dom'
+import home_logo from '../assets/logo/Owl only Transparant.png'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -56,8 +57,8 @@ export default function H_Nav_with_Hero() {
         <nav className="flex items-center justify-between pt-6" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="" />
+              <span className="sr-only">EduConnect Pro</span>
+              <img className="h-20" src={home_logo} alt="" />
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -87,8 +88,8 @@ export default function H_Nav_with_Hero() {
           <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-gray-900 px-6 py-6 lg:hidden">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="" />
+                <span className="sr-only">EduConnect Pro</span>
+                <img className="h-8" src={home_logo} alt="" />
               </a>
               <button
                 type="button"
