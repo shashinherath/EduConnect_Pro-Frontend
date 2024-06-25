@@ -14,10 +14,11 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSearch } from "./SearchContext";
+import axios from "axios";
 
 const navigation = [
   {
@@ -53,9 +54,8 @@ const navigation = [
 ];
 
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "My Profile", href: "/admin/dashboard/profile" },
+  { name: "Log out", href: "#logout" },
 ];
 
 function classNames(...classes) {
@@ -66,14 +66,38 @@ export default function Ad_Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const { searchQuery, setSearchQuery } = useSearch();
-
   const location = useLocation();
+  const token = localStorage.getItem("token");
+  const backendUrl = "http://127.0.0.1:8000";
+  const navigate = useNavigate();
+  const [profile_pic, setProfile_pic] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/current_user`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        setProfile_pic(response.data.profile_pic);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        navigate("/login");
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const currentRoute = navigation.find(
       (item) => item.href === location.pathname
     );
     setPageTitle(currentRoute ? currentRoute.name : "");
+
+    if (location.pathname === "/admin/dashboard/profile") {
+      setPageTitle("My Profile");
+    }
   }, [location]);
 
   const isCurrentRoute = (href) => {
@@ -86,6 +110,21 @@ export default function Ad_Dashboard() {
       current: isCurrentRoute(item.href),
     };
   });
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(`${backendUrl}/api/logout`, null, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      console.log(response.data);
+      localStorage.removeItem("token");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -282,7 +321,7 @@ export default function Ad_Dashboard() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={backendUrl + profile_pic}
                         alt=""
                       />
                     </Menu.Button>
@@ -300,15 +339,20 @@ export default function Ad_Dashboard() {
                       {userNavigation.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <a
-                              href={item.href}
+                            <Link
+                              to={item.href}
+                              onClick={() => {
+                                if (item.href === "#logout") {
+                                  handleLogout();
+                                }
+                              }}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                       ))}
