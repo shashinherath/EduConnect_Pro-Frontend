@@ -1,50 +1,112 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import {
-  CursorArrowRaysIcon,
-  EnvelopeOpenIcon,
   UsersIcon,
+  UserIcon,
+  UserGroupIcon,
+  InboxIcon,
 } from "@heroicons/react/24/outline";
-
-const stats = [
-  {
-    id: 1,
-    name: "Admins",
-    stat: "0",
-    icon: UsersIcon,
-    change: "122",
-    changeType: "increase",
-  },
-  {
-    id: 2,
-    name: "Lecturers",
-    stat: "58.16%",
-    icon: EnvelopeOpenIcon,
-    change: "5.4%",
-    changeType: "increase",
-  },
-  {
-    id: 3,
-    name: "Students",
-    stat: "24.57%",
-    icon: CursorArrowRaysIcon,
-    change: "3.2%",
-    changeType: "decrease",
-  },
-  {
-    id: 4,
-    name: "Courses",
-    stat: "24.57%",
-    icon: CursorArrowRaysIcon,
-    change: "3.2%",
-    changeType: "decrease",
-  },
-];
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Ad_Dashboard_Main() {
+  const [allAdmins, setAllAdmins] = useState([]);
+  const [allLecturers, setAllLecturers] = useState([]);
+  const [allStudents, setAllStudents] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const token = localStorage.getItem("token");
+  const backendUrl = "http://127.0.0.1:8000";
+
+  const [countAllAdmins, setCountAllAdmins] = useState(0);
+  const [countAllLecturers, setCountAllLecturers] = useState(0);
+  const [countAllStudents, setCountAllStudents] = useState(0);
+  const [countAllCourses, setCountAllCourses] = useState(0);
+
+  const stats = [
+    {
+      id: 1,
+      name: "Admins",
+      stat: countAllAdmins,
+      icon: UserIcon,
+      change: "122",
+      changeType: "increase",
+      path: "/admin/dashboard/admins",
+    },
+    {
+      id: 2,
+      name: "Lecturers",
+      stat: countAllLecturers,
+      icon: UsersIcon,
+      change: "0",
+      changeType: "increase",
+      path: "/admin/dashboard/lecturers",
+    },
+    {
+      id: 3,
+      name: "Students",
+      stat: countAllStudents,
+      icon: UserGroupIcon,
+      change: "0",
+      changeType: "decrease",
+      path: "/admin/dashboard/students",
+    },
+    {
+      id: 4,
+      name: "Courses",
+      stat: countAllCourses,
+      icon: InboxIcon,
+      change: "3.2%",
+      changeType: "decrease",
+      path: "/admin/dashboard/courses",
+    },
+  ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response1 = await axios.get(`${backendUrl}/api/admin_api`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        setAllAdmins(response1.data);
+
+        const response2 = await axios.get(`${backendUrl}/api/lecturer_api`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        setAllLecturers(response2.data);
+
+        const response3 = await axios.get(`${backendUrl}/api/student_api`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        setAllStudents(response3.data);
+        const response4 = await axios.get(`${backendUrl}/api/course_api`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        setAllCourses(response4.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setCountAllAdmins(allAdmins.length);
+    setCountAllLecturers(allLecturers.length);
+    setCountAllStudents(allStudents.length);
+    setCountAllCourses(allCourses.length);
+  }, [allAdmins, allLecturers, allStudents, allCourses]);
+
   return (
     <div>
       <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -65,44 +127,16 @@ export default function Ad_Dashboard_Main() {
               <p className="text-2xl font-semibold text-gray-900">
                 {item.stat}
               </p>
-              <p
-                className={classNames(
-                  item.changeType === "increase"
-                    ? "text-green-600"
-                    : "text-red-600",
-                  "ml-2 flex items-baseline text-sm font-semibold"
-                )}
-              >
-                {item.changeType === "increase" ? (
-                  <ArrowUpIcon
-                    className="h-5 w-5 flex-shrink-0 self-center text-green-500"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <ArrowDownIcon
-                    className="h-5 w-5 flex-shrink-0 self-center text-red-500"
-                    aria-hidden="true"
-                  />
-                )}
 
-                <span className="sr-only">
-                  {" "}
-                  {item.changeType === "increase"
-                    ? "Increased"
-                    : "Decreased"}{" "}
-                  by{" "}
-                </span>
-                {item.change}
-              </p>
               <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
                 <div className="text-sm">
-                  <a
-                    href="#"
+                  <Link
+                    to={item.path}
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     {" "}
                     View all<span className="sr-only"> {item.name} stats</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </dd>
