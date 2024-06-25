@@ -5,10 +5,12 @@ import {
   BellIcon,
   CalendarIcon,
   ChartBarIcon,
+  UsersIcon,
+  UserIcon,
+  UserGroupIcon,
   FolderIcon,
   HomeIcon,
   InboxIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
@@ -27,19 +29,19 @@ const navigation = [
   {
     name: "Admins",
     href: "/admin/dashboard/admins",
-    icon: UsersIcon,
+    icon: UserIcon,
     current: false,
   },
   {
     name: "Lecturers",
     href: "/admin/dashboard/lecturers",
-    icon: FolderIcon,
+    icon: UsersIcon,
     current: false,
   },
   {
     name: "Students",
     href: "/admin/dashboard/students",
-    icon: CalendarIcon,
+    icon: UserGroupIcon,
     current: false,
   },
   {
