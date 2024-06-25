@@ -2,27 +2,27 @@ import { ArrowPathIcon, CloudArrowUpIcon, FingerPrintIcon, LockClosedIcon } from
 
 const features = [
   {
-    name: 'Push to deploy',
+    name: 'Personalized Learning',
     description:
-      'Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.',
+      'Our AI-driven system tailors learning experiences to individual needs, providing personalized educational journeys that enhance understanding and retention.',
     icon: CloudArrowUpIcon,
   },
   {
-    name: 'SSL certificates',
+    name: 'Seamless Communication',
     description:
-      'Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.',
+      'Stay connected with features like Real-Time Location Tracking, Availability Status, and an Integrated Chat Service, ensuring smooth and instant communication between students and educators.',
     icon: LockClosedIcon,
   },
   {
-    name: 'Simple queues',
+    name: 'Resource Accessibility',
     description:
-      'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
+      'Easily share lecture materials, submit assignments, and access a vast resource repository. Our platform simplifies educational processes, making resources readily available to all users.',
     icon: ArrowPathIcon,
   },
   {
-    name: 'Advanced security',
+    name: 'Student Support',
     description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
+      'Benefit from Virtual Office Hours, Feedback and Evaluation tools, and Virtual Labs designed to offer extensive support and foster a conducive learning environment.',
     icon: FingerPrintIcon,
   },
 ]
@@ -32,13 +32,14 @@ export default function Example() {
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-lg font-semibold leading-8 tracking-tight text-indigo-600">Deploy faster</h2>
+          <h2 className="text-lg font-semibold leading-8 tracking-tight text-indigo-600">Innovating Education!</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Everything you need to deploy your app
+          Enhance Learning with EduConnect Pro
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-            pulvinar et feugiat blandit at. In mi viverra elit nunc.
+          EduConnect Pro offers everything you need to elevate your educational experience.
+          From seamless collaboration to advanced support systems, we provide tools that 
+          empower educators and engage students.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl text-left">
