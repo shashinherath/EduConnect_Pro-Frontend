@@ -68,11 +68,10 @@ export default function Login() {
               alt="EduConnect Pro"
             />
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
-              Learning Management System
+            Welcome to EduConnect Pro
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Please login to your account using credentials which admin has
-              provided you.
+            Log in with your provided credentials to unlock a world of personalized education and seamless connectivity.
             </p>
           </div>
 
