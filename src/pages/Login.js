@@ -1,38 +1,60 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import axios from "axios";
 import login_icon from "../assets/logo/Edu Connect pro Default Transparent.png";
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const backendUrl = "http://127.0.0.1:8000";
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/current_user`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        console.log(response.data);
+        if (response.data.admin.user_type == 1) {
+          navigate("/admin/dashboard");
+        } else if (response.data.admin.user_type == 2) {
+          navigate("/lecturer");
+        } else if (response.data.admin.user_type == 3) {
+          navigate("/student");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const response = await axios.post('http://127.0.0.1:8000/api/login', {
-              username,
-              password
-          });
-          localStorage.setItem('token', response.data.token);
-          setError('');
-          if (response.data.user_type == 1) {
-              navigate('/admin/dashboard');
-          }
-          else if (response.data.user_type == 2) {
-              navigate('/lecturer');
-          }
-          else {
-              navigate('/student');
-          }
-      } catch (error) {
-          setError('Invalid Credentials');
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${backendUrl}/api/login`, {
+        username,
+        password,
+      });
+      localStorage.setItem("token", response.data.token);
+      setError("");
+      if (response.data.user_type == 1) {
+        navigate("/admin/dashboard");
+      } else if (response.data.user_type == 2) {
+        navigate("/lecturer");
+      } else if (response.data.user_type == 3) {
+        navigate("/student");
       }
+    } catch (error) {
+      setError("Invalid Credentials");
+    }
   };
 
   return (
@@ -45,17 +67,28 @@ export default function Login() {
               src={login_icon}
               alt="EduConnect Pro"
             />
-            <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Learning Management System</h2>
+            <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
+              Learning Management System
+            </h2>
             <p className="mt-2 text-sm text-gray-600">
-              Please login to your account using credentials which admin has provided you.
+              Please login to your account using credentials which admin has
+              provided you.
             </p>
           </div>
 
           <div className="mt-8">
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6" onSubmit={handleSubmit}>
+              <form
+                action="#"
+                method="POST"
+                className="space-y-6"
+                onSubmit={handleSubmit}
+              >
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700 text-left">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700 text-left"
+                  >
                     Username
                   </label>
                   <div className="mt-1">
@@ -73,7 +106,10 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 text-left">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700 text-left"
+                  >
                     Password
                   </label>
                   <div className="mt-1">
@@ -98,13 +134,19 @@ export default function Login() {
                       type="checkbox"
                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                     />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                    <label
+                      htmlFor="remember-me"
+                      className="ml-2 block text-sm text-gray-900"
+                    >
                       Remember me
                     </label>
                   </div>
 
                   <div className="text-sm">
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <a
+                      href="#"
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
                       {/* Forgot your password? */}
                     </a>
                   </div>
