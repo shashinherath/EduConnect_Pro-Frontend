@@ -16,7 +16,7 @@ import Ad_Lectures from "./components/Ad_Lecturers";
 import Ad_Students from "./components/Ad_Students";
 import Ad_Admins from "./components/Ad_Admins";
 import Ad_Courses from "./components/Ad_Courses";
-
+import Ad_UserProfile from "./components/Ad_UserProfile";
 
 function App() {
   return (
@@ -49,6 +49,7 @@ function App() {
             <Route path="lecturers" element={<Ad_Lectures />} />
             <Route path="students" element={<Ad_Students />} />
             <Route path="courses" element={<Ad_Courses />} />
+            <Route path="profile" element={<Ad_UserProfile />} />
           </Route>
         </Route>
 
