@@ -14,6 +14,7 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearch } from "./SearchContext";
+import { Link } from "react-router-dom";
 
 export default function Ad_Students() {
   const { searchQuery } = useSearch();
@@ -246,8 +247,8 @@ export default function Ad_Students() {
               </button>
             </div>
             <div class="p-6 pt-0">
-              <a
-                href="#"
+              <Link
+               
                 className="text-indigo-600 hover:text-indigo-900 mr-5"
                 onClick={() => {
                   setCourseId(course.id);
@@ -255,9 +256,9 @@ export default function Ad_Students() {
                 }}
               >
                 Edit<span className="sr-only">, {course.name}</span>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                
                 className="text-red-600 hover:text-red-900 ml-5"
                 onClick={() => {
                   setCourseId(course.id);
@@ -265,130 +266,10 @@ export default function Ad_Students() {
                 }}
               >
                 Delete<span className="sr-only">, {course.name}</span>
-              </a>
+              </Link>
             </div>
           </div>
         ))}
-
-        {/* <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg"> */}
-        {/* <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                    >
-                      Name
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      name
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Status
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Phone Number
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Level
-                    </th>
-                    <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                    >
-                      <span className="sr-only">Edit</span>
-                    </th>
-                    <th
-                      scope="col"
-                      className="relative py-3.5 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                    >
-                      <span className="sr-only">Delete</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {courses.map((person) => (
-                    <tr key={person.email}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
-                        <div className="flex items-center">
-                          <div className="h-10 w-10 flex-shrink-0">
-                            <img
-                              className="h-10 w-10 rounded-full"
-                              src={backendUrl + person.image}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <div className="font-medium text-gray-900 text-left">
-                              {person.admin.description} {person.admin.last_name}
-                            </div>
-                            <div className="text-gray-500 text-left">
-                              {person.admin.email}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        <div className="text-gray-900">
-                          {person.admin.name}
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                          Active
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        {person.phone_number}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        {person.level}
-                      </td>
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
-                          href="#"
-                          className="text-indigo-600 hover:text-indigo-900"
-                          onClick={() => {
-                            setCourseId(person.id);
-                            handleGetCourse(person.id);
-                          }}
-                        >
-                          Edit<span className="sr-only">, {person.name}</span>
-                        </a>
-                      </td>
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
-                          href="#"
-                          className="text-red-600 hover:text-red-900"
-                          onClick={() => {
-                            setCourseId(person.id);
-                            handleDeleteDialog();
-                          }}
-                        >
-                          Delete<span className="sr-only">, {person.name}</span>
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table> */}
-        {/*  </div>
-          </div>
-        </div> */}
       </div>
       {/* open window 1 */}
       <Transition show={open}>

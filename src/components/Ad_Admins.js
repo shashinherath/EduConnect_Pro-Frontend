@@ -14,6 +14,7 @@ import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearch } from "./SearchContext";
+import { Link } from "react-router-dom";
 
 export default function Ad_Admins() {
   const { searchQuery } = useSearch();
@@ -323,8 +324,7 @@ export default function Ad_Admins() {
                         {person.role}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
-                          href="#"
+                        <Link
                           className="text-indigo-600 hover:text-indigo-900"
                           onClick={() => {
                             setuserId(person.id);
@@ -332,11 +332,10 @@ export default function Ad_Admins() {
                           }}
                         >
                           Edit<span className="sr-only">, {person.name}</span>
-                        </a>
+                        </Link>
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
-                          href="#"
+                        <Link
                           className="text-red-600 hover:text-red-900"
                           onClick={() => {
                             setuserId(person.id);
@@ -344,7 +343,7 @@ export default function Ad_Admins() {
                           }}
                         >
                           Delete<span className="sr-only">, {person.name}</span>
-                        </a>
+                        </Link>
                       </td>
                     </tr>
                   ))}
