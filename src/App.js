@@ -22,6 +22,13 @@ import St_Message from "./components/St_Message";
 import St_AI from "./components/St_AI";
 import St_Results from "./components/St_Results";
 import St_UserProfile from "./components/St_UserProfile";
+import Lec_Dashboard from "./components/Lec_Dashboard";
+import Lec_Dashboard_Main from "./components/Lec_Dashboard_Main";
+import Lec_Courses from "./components/Lec_Courses";
+import Lec_Message from "./components/Lec_Message";
+import Lec_Attendance from "./components/Lec_Attendance";
+import Lec_Assessment from "./components/Lec_Assessment";
+import Lec_UserProfile from "./components/Lec_UserProfile";
 import { useEffect } from "react";
 
 function App() {
@@ -42,7 +49,17 @@ function App() {
         <Route path="login" element={<Login />} />
 
         {/* Lecturer */}
-        <Route path="/lecturer" element={<LecturerPortal />} />
+        <Route path="/lecturer" element={<LecturerPortal />}>
+          <Route index element={<Lec_Dashboard />} />
+          <Route path="dashboard" element={<Lec_Dashboard />}>
+            <Route index element={<Lec_Dashboard_Main />} />
+            <Route path="courses" element={<Lec_Courses />} />
+            <Route path="message" element={<Lec_Message />} />
+            <Route path="attendance" element={<Lec_Attendance />} />
+            <Route path="assessment" element={<Lec_Assessment />} />
+            <Route path="profile" element={<Lec_UserProfile />} />
+          </Route>
+        </Route>
 
         {/* Student */}
         <Route path="/student" element={<StudentPortal />}>
