@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 
-export default function Ad_UserProfile() {
+export default function St_UserProfile() {
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [first_name, setFirst_name] = useState("");
