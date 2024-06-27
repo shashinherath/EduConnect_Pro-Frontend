@@ -31,7 +31,7 @@ export default function Ad_Lecturers() {
   const [last_name, setLast_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone_number, setPhone_number] = useState("");
+  const [degree, setDegree] = useState("ICT");
   const [role, setRole] = useState("Lecturer");
   const [profile_pic, setProfile_pic] = useState(null);
   const [profile_picUpdated, setProfile_picUpdated] = useState(null);
@@ -84,7 +84,8 @@ export default function Ad_Lecturers() {
               .includes(searchQuery.toLowerCase()) ||
             person.admin.email
               ?.toLowerCase()
-              .includes(searchQuery.toLowerCase())
+              .includes(searchQuery.toLowerCase()) ||
+            person.degree?.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
       })
@@ -124,7 +125,7 @@ export default function Ad_Lecturers() {
       formData.append("email", email);
       formData.append("password", password);
       formData.append("user_type", 2);
-      formData.append("phone_number", phone_number);
+      formData.append("degree", degree);
       formData.append("role", role);
 
       if (profile_pic !== null) {
@@ -150,7 +151,7 @@ export default function Ad_Lecturers() {
       setEmail("");
       setPassword("");
       setProfile_pic("");
-      setPhone_number("");
+      setDegree("ICT");
       setRole("Lecturer");
     } catch (error) {
       console.error(error);
@@ -174,7 +175,7 @@ export default function Ad_Lecturers() {
       setEmail(response.data.admin.email);
       setPassword(response.data.admin.password);
       setProfile_pic(response.data.profile_pic);
-      setPhone_number(response.data.phone_number);
+      setDegree(response.data.degree);
       setRole(response.data.role);
       setOpen2(true);
     } catch (error) {
@@ -193,7 +194,7 @@ export default function Ad_Lecturers() {
       formData.append("email", email);
       formData.append("password", password);
       formData.append("user_type", 1);
-      formData.append("phone_number", phone_number);
+      formData.append("degree", degree);
       formData.append("role", role);
 
       if (profile_picUpdated !== null) {
@@ -220,7 +221,7 @@ export default function Ad_Lecturers() {
       setPassword("");
       setProfile_pic(null);
       setProfile_picUpdated(null);
-      setPhone_number("");
+      setDegree("ICT");
       setRole("Lecturer");
       setProfilePicUrl("");
     } catch (error) {
@@ -236,7 +237,7 @@ export default function Ad_Lecturers() {
     setPassword("");
     setProfile_pic(null);
     setProfile_picUpdated(null);
-    setPhone_number("");
+    setDegree("ICT");
     setRole("Lecturer");
     setProfilePicUrl("");
   };
@@ -289,7 +290,7 @@ export default function Ad_Lecturers() {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Phone Number
+                      Degree
                     </th>
                     <th
                       scope="col"
@@ -344,14 +345,13 @@ export default function Ad_Lecturers() {
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        {person.phone_number}
+                        {person.degree}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
                         {person.role}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <Link
-                         
                           className="text-indigo-600 hover:text-indigo-900"
                           onClick={() => {
                             setuserId(person.id);
@@ -363,7 +363,6 @@ export default function Ad_Lecturers() {
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <Link
-                         
                           className="text-red-600 hover:text-red-900"
                           onClick={() => {
                             setuserId(person.id);
@@ -593,24 +592,31 @@ export default function Ad_Lecturers() {
 
                                 <div className="sm:col-span-3">
                                   <label
-                                    htmlFor="phone-number"
+                                    htmlFor="degree"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Phone Number
+                                    Degree
                                   </label>
                                   <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="phone-number"
-                                      id="phone-number"
-                                      value={phone_number}
+                                    <select
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
                                       onChange={(e) =>
-                                        setPhone_number(e.target.value)
+                                        setDegree(e.target.value)
                                       }
                                       required
-                                      autoComplete="family-name"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
+                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
+                                    </select>
                                   </div>
                                 </div>
 
@@ -907,24 +913,31 @@ export default function Ad_Lecturers() {
 
                                 <div className="sm:col-span-3">
                                   <label
-                                    htmlFor="phone-number"
+                                    htmlFor="degree"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Phone Number
+                                    Degree
                                   </label>
                                   <div className="mt-2">
-                                    <input
-                                      type="text"
-                                      name="phone-number"
-                                      id="phone-number"
-                                      value={phone_number}
+                                    <select
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
                                       onChange={(e) =>
-                                        setPhone_number(e.target.value)
+                                        setDegree(e.target.value)
                                       }
                                       required
-                                      autoComplete="family-name"
-                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
+                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
+                                    </select>
                                   </div>
                                 </div>
 
