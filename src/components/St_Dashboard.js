@@ -80,7 +80,7 @@ export default function Ad_Dashboard() {
         setProfile_pic(response.data.profile_pic);
       } catch (error) {
         console.error("Error fetching data:", error);
-        /* navigate("/login"); */
+        navigate("/login");
       }
     };
     fetchData();
