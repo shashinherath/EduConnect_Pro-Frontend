@@ -59,7 +59,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Ad_Dashboard() {
+export default function St_Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const { searchQuery, setSearchQuery } = useSearch();
