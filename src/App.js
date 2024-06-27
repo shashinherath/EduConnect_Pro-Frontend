@@ -24,8 +24,12 @@ import St_Message from "./components/St_Message";
 import St_AI from "./components/St_AI";
 import St_Results from "./components/St_Results";
 import St_UserProfile from "./components/St_UserProfile";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "EduConnect Pro";
+  }, []);
   return (
     <div className="App">
       <Routes>

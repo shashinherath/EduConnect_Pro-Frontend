@@ -6,10 +6,6 @@ import H_Content from "../components/H_Content";
 import H_Partners from "../components/H_Partners";
 
 function Home() {
-  useEffect(() => {
-    document.title = "EduConnect Pro";
-  }, []);
-
   return (
     <>
       <Navbar />
