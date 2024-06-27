@@ -11,43 +11,37 @@ function Footer() {
           >
             <div className="px-5 py-2">
               <a href="#" className="text-base text-gray-300 hover:text-white">
+                Home
+              </a>
+            </div>
+
+            <div className="px-5 py-2">
+              <a href="#" className="text-base text-gray-300 hover:text-white">
+                Team
+              </a>
+            </div>
+
+            <div className="px-5 py-2">
+              <a href="#" className="text-base text-gray-300 hover:text-white">
                 About
               </a>
             </div>
 
             <div className="px-5 py-2">
               <a href="#" className="text-base text-gray-300 hover:text-white">
-                Blog
+                Partnership
               </a>
             </div>
 
             <div className="px-5 py-2">
               <a href="#" className="text-base text-gray-300 hover:text-white">
-                Jobs
+                Privacy Policy
               </a>
             </div>
 
             <div className="px-5 py-2">
               <a href="#" className="text-base text-gray-300 hover:text-white">
-                Press
-              </a>
-            </div>
-
-            <div className="px-5 py-2">
-              <a href="#" className="text-base text-gray-300 hover:text-white">
-                Accessibility
-              </a>
-            </div>
-
-            <div className="px-5 py-2">
-              <a href="#" className="text-base text-gray-300 hover:text-white">
-                Partners
-              </a>
-            </div>
-
-            <div className="px-5 py-2">
-              <a href="#" className="text-base text-gray-300 hover:text-white">
-                Privacy
+                Terms and Conditions
               </a>
             </div>
           </nav>
