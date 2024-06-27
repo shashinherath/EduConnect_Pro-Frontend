@@ -5,29 +5,48 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Hero_video from "../assets/Hero.mp4";
 import { Link } from "react-router-dom";
 import home_logo from "../assets/logo/Owl only Transparant.png";
+import { useEffect } from "react";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Team", href: "#team" },
-  { name: "About", href: "#" },
-  { name: "Partnership", href: "#" },
+  { name: "Home", href: "#" },
+  { name: "Team", href: "team" },
+  { name: "About", href: "about" },
+  { name: "Partnership", href: "partnership" },
 ];
 
 export default function H_Nav_with_Hero() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 8000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.error("Section not found");
+    }
+  };
 
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900">
+    <div className="relative isolate overflow-hidden bg-gray-900 max-h-screen">
       <video
         autoPlay
         loop
         muted
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="absolute inset-0 -z-10 max-h-screen w-full object-cover"
       >
         <source src={Hero_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem] bg-black opacity-70">
+      <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem] bg-black opacity-20">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
@@ -60,7 +79,7 @@ export default function H_Nav_with_Hero() {
           <div className="flex lg:flex-1">
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">EduConnect Pro</span>
-              <img className="h-20" src={home_logo} alt="" />
+              <img className="h-16" src={home_logo} alt="" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -76,8 +95,12 @@ export default function H_Nav_with_Hero() {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <Link
+                to=""
                 key={item.name}
-                to={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(item.href);
+                }}
                 className="text-sm font-semibold leading-6 text-white"
               >
                 {item.name}
@@ -117,8 +140,12 @@ export default function H_Nav_with_Hero() {
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <Link
+                      to=""
                       key={item.name}
-                      to={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(item.href);
+                      }}
                       className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-white hover:bg-gray-400/10"
                     >
                       {item.name}
@@ -137,35 +164,44 @@ export default function H_Nav_with_Hero() {
             </div>
           </Dialog.Panel>
         </Dialog>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-            Discover the Future of Education with EduConnect Pro.{' '}
-              <a href="#" className="font-semibold text-white">
-                <span className="absolute inset-0" aria-hidden="true" />
-                Read more <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </div>
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              Connecting Beyond Borders
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-            "Welcome to EduConnect Pro, a cutting-edge Learning Management System designed to revolutionize education by seamlessly connecting students and educators across borders. With advanced features for personalized learning, interactive collaboration, and robust communication tools, EduConnect Pro enhances the educational experience and fosters a global community of learning and growth."
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                to="/login"
-                className="rounded-md bg-indigo-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-              >
-                Log in <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </div>
-          </div>
+        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-32 h-screen">
+          {isVisible && (
+            <>
+              <div className=" animate-fade-in">
+                <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                  <div className="relative rounded-full py-1 px-3 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
+                    Discover the Future of Education with EduConnect Pro.{" "}
+                    <a href="#" className="font-semibold text-white">
+                      <span className="absolute inset-0" aria-hidden="true" />
+                      Read more <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                    Connecting Beyond Borders
+                  </h1>
+                  <p className="mt-6 text-lg leading-8 text-gray-300">
+                    "Welcome to EduConnect Pro, a cutting-edge Learning
+                    Management System designed to revolutionize education by
+                    seamlessly connecting students and educators across
+                    borders."
+                  </p>
+                  <div className="mt-10 flex items-center justify-center gap-x-6">
+                    <Link
+                      to="/login"
+                      className="rounded-md bg-indigo-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                    >
+                      Log in <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
-      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)] bg-black opacity-60">
+      <div className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)] bg-black opacity-20">
         <svg
           className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
           viewBox="0 0 1155 678"
