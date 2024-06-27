@@ -164,7 +164,6 @@ export default function Ad_Admins() {
       setFirst_name(response.data.admin.first_name);
       setLast_name(response.data.admin.last_name);
       setEmail(response.data.admin.email);
-      setPassword(response.data.admin.password);
       setProfile_pic(response.data.profile_pic);
       setOpen2(true);
     } catch (error) {
