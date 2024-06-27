@@ -17,6 +17,13 @@ import Ad_Students from "./components/Ad_Students";
 import Ad_Admins from "./components/Ad_Admins";
 import Ad_Courses from "./components/Ad_Courses";
 import Ad_UserProfile from "./components/Ad_UserProfile";
+import St_Dashboard from "./components/St_Dashboard";
+import St_Dashboard_Main from "./components/St_Dashboard_Main";
+import St_Courses from "./components/St_Courses";
+import St_Message from "./components/St_Message";
+import St_AI from "./components/St_AI";
+import St_Results from "./components/St_Results";
+import St_UserProfile from "./components/St_UserProfile";
 
 function App() {
   return (
@@ -37,7 +44,15 @@ function App() {
 
         {/* Student */}
         <Route path="/student" element={<StudentPortal />}>
-          <Route path="calendar" element={<Calendar />} />
+          <Route index element={<St_Dashboard />} />
+          <Route path="dashboard" element={<St_Dashboard />}>
+            <Route index element={<St_Dashboard_Main />} />
+            <Route path="courses" element={<St_Courses />} />
+            <Route path="message" element={<St_Message />} />
+            <Route path="ai" element={<St_AI />} />
+            <Route path="results" element={<St_Results />} />
+            <Route path="profile" element={<St_UserProfile />} />
+          </Route>
         </Route>
 
         {/* Admin */}
