@@ -32,7 +32,7 @@ export default function Ad_Students() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone_number, setPhone_number] = useState("");
-  const [level, setLevel] = useState("100");
+  const [degree, setDegree] = useState("ICT");
   const [profile_pic, setProfile_pic] = useState(null);
   const [profile_picUpdated, setProfile_picUpdated] = useState(null);
 
@@ -84,7 +84,8 @@ export default function Ad_Students() {
               .includes(searchQuery.toLowerCase()) ||
             person.admin.email
               ?.toLowerCase()
-              .includes(searchQuery.toLowerCase())
+              .includes(searchQuery.toLowerCase()) ||
+            person.degree?.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
       })
@@ -125,7 +126,7 @@ export default function Ad_Students() {
       formData.append("password", password);
       formData.append("user_type", 3);
       formData.append("phone_number", phone_number);
-      formData.append("level", level);
+      formData.append("degree", degree);
 
       if (profile_pic !== null) {
         formData.append("profile_pic", profile_pic);
@@ -151,7 +152,7 @@ export default function Ad_Students() {
       setPassword("");
       setProfile_pic("");
       setPhone_number("");
-      setLevel("100");
+      setDegree("ICT");
     } catch (error) {
       console.error(error);
     }
@@ -175,7 +176,7 @@ export default function Ad_Students() {
       setPassword(response.data.admin.password);
       setProfile_pic(response.data.profile_pic);
       setPhone_number(response.data.phone_number);
-      setLevel(response.data.level);
+      setDegree(response.data.degree);
       setOpen2(true);
     } catch (error) {
       console.error(error);
@@ -194,7 +195,7 @@ export default function Ad_Students() {
       formData.append("password", password);
       formData.append("user_type", 3);
       formData.append("phone_number", phone_number);
-      formData.append("level", level);
+      formData.append("degree", degree);
 
       if (profile_picUpdated !== null) {
         formData.append("profile_pic", profile_picUpdated);
@@ -221,7 +222,7 @@ export default function Ad_Students() {
       setProfile_pic(null);
       setProfile_picUpdated(null);
       setPhone_number("");
-      setLevel("100");
+      setDegree("ICT");
       setProfilePicUrl("");
     } catch (error) {
       console.error(error);
@@ -237,7 +238,7 @@ export default function Ad_Students() {
     setProfile_pic(null);
     setProfile_picUpdated(null);
     setPhone_number("");
-    setLevel("100");
+    setDegree("ICT");
     setProfilePicUrl("");
   };
 
@@ -295,7 +296,7 @@ export default function Ad_Students() {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Level
+                      Degree
                     </th>
                     <th
                       scope="col"
@@ -347,7 +348,7 @@ export default function Ad_Students() {
                         {person.phone_number}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
-                        {person.level}
+                        {person.degree}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <Link
@@ -568,24 +569,30 @@ export default function Ad_Students() {
 
                                 <div className="sm:col-span-3">
                                   <label
-                                    htmlFor="level"
+                                    htmlFor="degree"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Level
+                                    Degree
                                   </label>
                                   <div className="mt-2">
                                     <select
-                                      id="level"
-                                      name="level"
-                                      autoComplete="level"
-                                      value={level}
-                                      onChange={(e) => setLevel(e.target.value)}
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
+                                      onChange={(e) =>
+                                        setDegree(e.target.value)
+                                      }
+                                      required
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                     >
-                                      <option>100</option>
-                                      <option>200</option>
-                                      <option>300</option>
-                                      <option>400</option>
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
                                     </select>
                                   </div>
                                 </div>
@@ -883,24 +890,30 @@ export default function Ad_Students() {
 
                                 <div className="sm:col-span-3">
                                   <label
-                                    htmlFor="level"
+                                    htmlFor="degree"
                                     className="block text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Level
+                                    Degree
                                   </label>
                                   <div className="mt-2">
                                     <select
-                                      id="level"
-                                      name="level"
-                                      autoComplete="level"
-                                      value={level}
-                                      onChange={(e) => setLevel(e.target.value)}
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
+                                      onChange={(e) =>
+                                        setDegree(e.target.value)
+                                      }
+                                      required
                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                     >
-                                      <option>100</option>
-                                      <option>200</option>
-                                      <option>300</option>
-                                      <option>400</option>
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
                                     </select>
                                   </div>
                                 </div>
