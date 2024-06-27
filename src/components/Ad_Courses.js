@@ -28,6 +28,7 @@ export default function Ad_Students() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [degree, setDegree] = useState("ICT");
   const [image, setImage] = useState(null);
   const [imageUpdated, setImageUpdated] = useState(null);
   const default_img = "http://127.0.0.1:8000/media/course_images/default.png";
@@ -75,7 +76,8 @@ export default function Ad_Students() {
             course.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
             course.description
               ?.toLowerCase()
-              .includes(searchQuery.toLowerCase())
+              .includes(searchQuery.toLowerCase()) ||
+            course.degree?.toLowerCase().includes(searchQuery.toLowerCase())
           );
         }
       })
@@ -111,6 +113,7 @@ export default function Ad_Students() {
 
       formData.append("name", name);
       formData.append("description", description);
+      formData.append("degree", degree);
 
       if (image !== null) {
         formData.append("image", image);
@@ -131,6 +134,7 @@ export default function Ad_Students() {
       setRefresh((prev) => !prev);
       setName("");
       setDescription("");
+      setDegree("ICT");
       setImage("");
     } catch (error) {
       console.error(error);
@@ -150,6 +154,7 @@ export default function Ad_Students() {
       console.log(response.data);
       setName(response.data.name);
       setDescription(response.data.description);
+      setDegree(response.data.degree);
       setImage(response.data.image);
       setOpen2(true);
     } catch (error) {
@@ -164,6 +169,7 @@ export default function Ad_Students() {
 
       formData.append("name", name);
       formData.append("description", description);
+      formData.append("degree", degree);
 
       if (imageUpdated !== null) {
         formData.append("image", imageUpdated);
@@ -184,6 +190,7 @@ export default function Ad_Students() {
       setRefresh((prev) => !prev);
       setName("");
       setDescription("");
+      setDegree("ICT");
       setImage(null);
       setImageUpdated(null);
       setProfilePicUrl("");
@@ -195,6 +202,7 @@ export default function Ad_Students() {
   const closeForm = () => {
     setName("");
     setDescription("");
+    setDegree("ICT");
     setImage(null);
     setImageUpdated(null);
     setProfilePicUrl("");
@@ -238,17 +246,16 @@ export default function Ad_Students() {
               </p>
             </div>
             <div class="p-6 pt-0">
-              <button
+              <div
                 data-ripple-light="true"
                 type="button"
                 class="select-none rounded-lg bg-indigo-600 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               >
-                Manage Access
-              </button>
+                {course.degree}
+              </div>
             </div>
             <div class="p-6 pt-0">
               <Link
-               
                 className="text-indigo-600 hover:text-indigo-900 mr-5"
                 onClick={() => {
                   setCourseId(course.id);
@@ -258,7 +265,6 @@ export default function Ad_Students() {
                 Edit<span className="sr-only">, {course.name}</span>
               </Link>
               <Link
-                
                 className="text-red-600 hover:text-red-900 ml-5"
                 onClick={() => {
                   setCourseId(course.id);
@@ -405,6 +411,36 @@ export default function Ad_Students() {
                                         placeholder=""
                                       />
                                     </div>
+                                  </div>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label
+                                    htmlFor="degree"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                  >
+                                    Degree
+                                  </label>
+                                  <div className="mt-2">
+                                    <select
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
+                                      onChange={(e) =>
+                                        setDegree(e.target.value)
+                                      }
+                                      required
+                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
+                                    </select>
                                   </div>
                                 </div>
 
@@ -602,6 +638,36 @@ export default function Ad_Students() {
                                         placeholder=""
                                       />
                                     </div>
+                                  </div>
+                                </div>
+
+                                <div className="sm:col-span-3">
+                                  <label
+                                    htmlFor="degree"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                  >
+                                    Degree
+                                  </label>
+                                  <div className="mt-2">
+                                    <select
+                                      id="degree"
+                                      name="degree"
+                                      autoComplete="degree"
+                                      value={degree}
+                                      onChange={(e) =>
+                                        setDegree(e.target.value)
+                                      }
+                                      required
+                                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                    >
+                                      <option>ICT</option>
+                                      <option>ET</option>
+                                      <option>BST</option>
+                                      <option>HR</option>
+                                      <option>Art</option>
+                                      <option>Management</option>
+                                      <option>Mathematics</option>
+                                    </select>
                                   </div>
                                 </div>
 
