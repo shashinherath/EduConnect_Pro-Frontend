@@ -72,7 +72,7 @@ export default function Lec_Courses() {
       <div className="mt-20 grid grid-cols-1 gap-20 sm:grid-cols-2 lg:grid-cols-4">
         {courses.map((course) => (
           <Link
-            to={`/student/course/${course.id}`}
+            to={`/lecturer/dashboard/courses/${course.id}`}
             key={course.id}
             className="hover:shadow-lg hover:shadow-gray-500/40 focus:shadow-lg focus:shadow-gray-500/40 active:shadow-lg active:shadow-gray-500/40 transition-all duration-200 ease-in-out transform hover:-translate-y-1 focus:-translate-y-1 active:-translate-y-1 hover:scale-105 focus:scale-105 active:scale-105"
           >
