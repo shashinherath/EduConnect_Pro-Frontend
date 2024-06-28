@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSearch } from "./SearchContext";
 import axios from "axios";
+import Lecturer_Panel from "../assets/logo/Lecture Panel.png";
 
 const navigation = [
   {
@@ -180,9 +181,9 @@ export default function Lec_Dashboard() {
                   </Transition.Child>
                   <div className="flex flex-shrink-0 items-center px-4">
                     <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
+                      className="h-auto w-auto"
+                      src={Lecturer_Panel}
+                      alt="Lecturer Panel"
                     />
                   </div>
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
@@ -227,9 +228,9 @@ export default function Lec_Dashboard() {
           <div className="flex min-h-0 flex-1 flex-col bg-gray-800">
             <div className="flex h-16 flex-shrink-0 items-center bg-gray-900 px-4">
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                alt="Your Company"
+                className="h-auto w-auto"
+                src={Lecturer_Panel}
+                alt="Leacturer Panel"
               />
             </div>
             <div className="flex flex-1 flex-col overflow-y-auto">
