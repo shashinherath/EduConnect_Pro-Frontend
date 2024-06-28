@@ -29,6 +29,7 @@ import Lec_Message from "./components/Lec_Message";
 import Lec_Attendance from "./components/Lec_Attendance";
 import Lec_Assessment from "./components/Lec_Assessment";
 import Lec_UserProfile from "./components/Lec_UserProfile";
+import Lec_Materials from "./components/Lec_Materials";
 import { useEffect } from "react";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
             <Route path="attendance" element={<Lec_Attendance />} />
             <Route path="assessment" element={<Lec_Assessment />} />
             <Route path="profile" element={<Lec_UserProfile />} />
+            <Route path="courses/materials" element={<Lec_Materials />} />
           </Route>
         </Route>
 
