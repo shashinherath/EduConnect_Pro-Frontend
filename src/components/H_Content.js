@@ -1,9 +1,12 @@
+import React, { useEffect } from "react";
 import {
   ArrowPathIcon,
   CloudArrowUpIcon,
   FingerPrintIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const features = [
   {
@@ -33,10 +36,19 @@ const features = [
 ];
 
 export default function H_Content() {
+  useEffect(() => {
+    AOS.init({});
+  }, []);
+
   return (
     <div id="about" className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-anchor-placement="center-bottom"
+          className="mx-auto max-w-2xl lg:text-center"
+        >
           <h2 className="text-lg font-semibold leading-8 tracking-tight text-indigo-600">
             Innovating Education!
           </h2>
@@ -53,7 +65,13 @@ export default function H_Content() {
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl text-left">
           <dl className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {features.map((feature) => (
-              <div key={feature.name} className="relative pl-16">
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-anchor-placement="center-bottom"
+                key={feature.name}
+                className="relative pl-16"
+              >
                 <dt className="text-base font-semibold leading-7 text-gray-900">
                   <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
                     <feature.icon
