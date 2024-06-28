@@ -14,7 +14,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearch } from "./SearchContext";
 import { Link } from "react-router-dom";
-import { useCourse } from "./CourseContext";
 import { Fragment } from "react";
 import { Menu } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
@@ -40,8 +39,8 @@ const formatDateAndTime = (dateString) => {
 };
 
 export default function Lec_Materials() {
-  const { materialCourseId } = useCourse();
-  const { materialCourseTitle } = useCourse();
+  const materialCourseId = localStorage.getItem("materialCourseId");
+  const materialCourseTitle = localStorage.getItem("materialCourseTitle");
   const { searchQuery } = useSearch();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -97,8 +96,10 @@ export default function Lec_Materials() {
   useEffect(() => {
     setCourseMaterials(
       allMaterials.filter((material) => {
-        if (material.course_id === materialCourseId) {
-          return true;
+        if (materialCourseId !== "") {
+          return material.course_id == materialCourseId;
+        } else {
+          console.log("Course not set");
         }
       })
     );

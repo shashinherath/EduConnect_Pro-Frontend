@@ -3,13 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSearch } from "./SearchContext";
-import { useCourse } from "./CourseContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Lec_Courses() {
   const { searchQuery } = useSearch();
-  const { setMaterialCourseId } = useCourse();
-  const { setMaterialCourseTitle } = useCourse();
   const [courses, setCourses] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
   const [degree, setDegree] = useState("");
@@ -35,6 +32,8 @@ export default function Lec_Courses() {
           },
         });
         setAllCourses(response.data);
+        localStorage.setItem("materialCourseId", "");
+        localStorage.setItem("materialCourseTitle", "");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -80,8 +79,8 @@ export default function Lec_Courses() {
             to=""
             onClick={(e) => {
               e.preventDefault();
-              setMaterialCourseId(course.id);
-              setMaterialCourseTitle(course.name);
+              localStorage.setItem("materialCourseId", course.id);
+              localStorage.setItem("materialCourseTitle", course.name);
               navigate("/lecturer/dashboard/courses/materials");
             }}
             key={course.id}
