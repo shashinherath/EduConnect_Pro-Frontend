@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { SearchProvider } from "../components/SearchContext";
 import { useEffect } from "react";
+import { CourseProvider } from "../components/CourseContext";
 
 function LecturerPortal() {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ function LecturerPortal() {
 
   return (
     <SearchProvider>
-      <Outlet />
+      <CourseProvider>
+        <Outlet />
+      </CourseProvider>
     </SearchProvider>
   );
 }
