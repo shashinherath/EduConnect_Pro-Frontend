@@ -32,15 +32,15 @@ const navigation = [
     current: false,
   },
   {
-    name: "Message",
-    href: "/student/dashboard/message",
-    icon: ChatBubbleLeftIcon,
-    current: false,
-  },
-  {
     name: "AI KGS",
     href: "/student/dashboard/ai",
     icon: SparklesIcon,
+    current: false,
+  },
+  {
+    name: "Message",
+    href: "/student/dashboard/message",
+    icon: ChatBubbleLeftIcon,
     current: false,
   },
   {
