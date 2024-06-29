@@ -17,6 +17,12 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Menu } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import pdficon from "../assets/file_types/pdf-svgrepo-com.svg";
+import wordicon from "../assets/file_types/word-svgrepo-com.svg";
+import ppticon from "../assets/file_types/ppt-svgrepo-com.svg";
+import pngicon from "../assets/file_types/png-svgrepo-com.svg";
+import jpgicon from "../assets/file_types/jpg-svgrepo-com.svg";
+import fileicon from "../assets/file_types/file-1-svgrepo-com.svg";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -50,28 +56,38 @@ export default function Lec_Materials() {
   const [materialId, setMaterialId] = useState("");
   const [courseMaterials, setCourseMaterials] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [showAlert1, setShowAlert1] = useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [filename, setFilename] = useState("");
   const [file, setFile] = useState(null);
   const [fileLink, setFileLink] = useState("");
-  const [fileUpdated, setFileUpdated] = useState(null);
 
   const token = localStorage.getItem("token");
   const backendUrl = "http://127.0.0.1:8000";
-  const [profilePicUrl, setProfilePicUrl] = useState("");
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePicUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
+  function handleFileChange(e) {
+    const tempFile = e.target.files[0];
+    const maxSize = 10 * 1024 * 1024;
+
+    if (tempFile.size > maxSize) {
+      setShowAlert1(true);
+      e.target.value = "";
+    } else {
+      setFile(e.target.files[0]);
     }
-  };
+  }
+
+  useEffect(() => {
+    let timer;
+    if (showAlert1) {
+      timer = setTimeout(() => {
+        setShowAlert1(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [showAlert1]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -216,8 +232,8 @@ export default function Lec_Materials() {
       formData.append("description", description);
       formData.append("filename", filename);
 
-      if (fileUpdated !== null) {
-        formData.append("file", fileUpdated);
+      if (file !== null) {
+        formData.append("file", file);
       }
 
       const response = await axios.put(
@@ -238,8 +254,7 @@ export default function Lec_Materials() {
       setDescription("");
       setFilename("");
       setFileLink("");
-      setFileUpdated(null);
-      setProfilePicUrl("");
+      setFile(null);
     } catch (error) {
       console.error(error);
     }
@@ -252,8 +267,6 @@ export default function Lec_Materials() {
     setFilename("");
     setFileLink("");
     setFile(null);
-    setFileUpdated(null);
-    setProfilePicUrl("");
   };
 
   return (
@@ -298,6 +311,26 @@ export default function Lec_Materials() {
                 >
                   <div className="min-w-0">
                     <div className="flex items-start gap-x-3">
+                      <img
+                        className="h-8 w-8"
+                        src={
+                          material.file.split(".").pop() === "pdf"
+                            ? pdficon
+                            : material.file.split(".").pop() === "docx" ||
+                              material.file.split(".").pop() === "doc"
+                            ? wordicon
+                            : material.file.split(".").pop() === "ppt" ||
+                              material.file.split(".").pop() === "pptx"
+                            ? ppticon
+                            : material.file.split(".").pop() === "png"
+                            ? pngicon
+                            : material.file.split(".").pop() === "jpg" ||
+                              material.file.split(".").pop() === "jpeg"
+                            ? jpgicon
+                            : fileicon
+                        }
+                        alt="file types"
+                      />
                       <p className="font-semibold leading-6 text-gray-900 text-left">
                         {material.filename}
                       </p>
@@ -324,7 +357,7 @@ export default function Lec_Materials() {
                       to={backendUrl + material.file}
                       className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                     >
-                      View PDF
+                      View {material.file.split(".").pop().toUpperCase()}
                       <span className="sr-only">, {material.id}</span>
                     </Link>
                     <Menu as="div" className="relative flex-none">
@@ -483,7 +516,7 @@ export default function Lec_Materials() {
                                       htmlFor="photo"
                                       className="block text-sm font-medium leading-6 text-gray-900"
                                     >
-                                      Lecture Material
+                                      Lecture Material (File size: 10MB max)
                                     </label>
                                     <div className="mt-2 flex items-center gap-x-3">
                                       <input
@@ -492,7 +525,6 @@ export default function Lec_Materials() {
                                         id="file"
                                         name="file"
                                         onChange={(e) => {
-                                          setFile(e.target.files[0]);
                                           handleFileChange(e);
                                         }}
                                       />
@@ -677,7 +709,7 @@ export default function Lec_Materials() {
                                       htmlFor="material"
                                       className="block text-sm font-medium leading-6 text-gray-900"
                                     >
-                                      Lecture Material
+                                      Lecture Material (File size: 10MB max)
                                     </label>
                                     <label
                                       htmlFor="file"
@@ -694,7 +726,6 @@ export default function Lec_Materials() {
                                         id="file"
                                         name="file"
                                         onChange={(e) => {
-                                          setFileUpdated(e.target.files[0]);
                                           handleFileChange(e);
                                         }}
                                       />
@@ -861,6 +892,39 @@ export default function Lec_Materials() {
             </div>
           </Dialog>
         </Transition>
+        <div>
+          {showAlert1 && (
+            <div
+              className="rounded-md bg-yellow-50 p-4"
+              style={{
+                position: "fixed",
+                top: 100,
+                right: 500,
+                left: 500,
+                zIndex: 1000,
+              }}
+            >
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <ExclamationTriangleIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="ml-3 text-left">
+                  <h3 className="text-sm font-medium text-yellow-800">
+                    Attention needed
+                  </h3>
+                  <div className="mt-2 text-sm text-yellow-700 text-left">
+                    <p>
+                      Max File size should be less than 10MB. Please try again.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
