@@ -81,7 +81,7 @@ export default function St_Courses() {
               e.preventDefault();
               localStorage.setItem("materialCourseId", course.id);
               localStorage.setItem("materialCourseTitle", course.name);
-              navigate("/lecturer/dashboard/courses/materials");
+              navigate("/student/dashboard/courses/materials");
             }}
             key={course.id}
             className="hover:shadow-lg hover:shadow-gray-500/40 focus:shadow-lg focus:shadow-gray-500/40 active:shadow-lg active:shadow-gray-500/40 transition-all duration-200 ease-in-out transform hover:-translate-y-1 focus:-translate-y-1 active:-translate-y-1 hover:scale-105 focus:scale-105 active:scale-105"
