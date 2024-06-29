@@ -1,7 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export default function St_Results() {
   return (
-    <div>St_Results</div>
-  )
+    <div className="grid h-screen place-items-center">
+      <h1 className="text-center font-bold text-7xl -translate-y-32">
+        Extra/Additional feature
+      </h1>
+    </div>
+  );
 }
