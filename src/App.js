@@ -22,6 +22,7 @@ import St_Message from "./components/St_Message";
 import St_AI from "./components/St_AI";
 import St_Results from "./components/St_Results";
 import St_UserProfile from "./components/St_UserProfile";
+import St_Materials from "./components/St_Materials";
 import Lec_Dashboard from "./components/Lec_Dashboard";
 import Lec_Dashboard_Main from "./components/Lec_Dashboard_Main";
 import Lec_Courses from "./components/Lec_Courses";
@@ -73,6 +74,7 @@ function App() {
             <Route path="ai" element={<St_AI />} />
             <Route path="results" element={<St_Results />} />
             <Route path="profile" element={<St_UserProfile />} />
+            <Route path="courses/materials" element={<St_Materials />} />
           </Route>
         </Route>
 
