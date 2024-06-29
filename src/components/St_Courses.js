@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSearch } from "./SearchContext";
+import { useNavigate } from "react-router-dom";
 
 export default function St_Courses() {
   const { searchQuery } = useSearch();
@@ -10,6 +11,7 @@ export default function St_Courses() {
   const [allCourses, setAllCourses] = useState([]);
   const [degree, setDegree] = useState("");
   const [degreeCourses, setDegreeCourses] = useState([]);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   const backendUrl = "http://127.0.0.1:8000";
@@ -30,6 +32,8 @@ export default function St_Courses() {
           },
         });
         setAllCourses(response.data);
+        localStorage.setItem("materialCourseId", "");
+        localStorage.setItem("materialCourseTitle", "");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -72,7 +76,13 @@ export default function St_Courses() {
       <div className="mt-20 grid grid-cols-1 gap-20 sm:grid-cols-2 lg:grid-cols-4">
         {courses.map((course) => (
           <Link
-            to={`/student/dashboard/courses/materials`}
+            to=""
+            onClick={(e) => {
+              e.preventDefault();
+              localStorage.setItem("materialCourseId", course.id);
+              localStorage.setItem("materialCourseTitle", course.name);
+              navigate("/lecturer/dashboard/courses/materials");
+            }}
             key={course.id}
             className="hover:shadow-lg hover:shadow-gray-500/40 focus:shadow-lg focus:shadow-gray-500/40 active:shadow-lg active:shadow-gray-500/40 transition-all duration-200 ease-in-out transform hover:-translate-y-1 focus:-translate-y-1 active:-translate-y-1 hover:scale-105 focus:scale-105 active:scale-105"
           >
