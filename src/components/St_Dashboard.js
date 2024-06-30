@@ -79,6 +79,11 @@ export default function St_Dashboard() {
           },
         });
         setProfile_pic(response.data.profile_pic);
+        if (response.data.admin.user_type == 1) {
+          navigate("/admin");
+        } else if (response.data.admin.user_type == 2) {
+          navigate("/lecturer");
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         navigate("/login");
