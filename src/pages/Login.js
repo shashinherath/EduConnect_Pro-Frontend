@@ -24,7 +24,7 @@ export default function Login() {
         });
         console.log(response.data);
         if (response.data.admin.user_type == 1) {
-          navigate("/admin/dashboard");
+          navigate("/admin");
         } else if (response.data.admin.user_type == 2) {
           navigate("/lecturer");
         } else if (response.data.admin.user_type == 3) {
@@ -47,7 +47,7 @@ export default function Login() {
       localStorage.setItem("token", response.data.token);
       setError("");
       if (response.data.user_type == 1) {
-        navigate("/admin/dashboard");
+        navigate("/admin");
       } else if (response.data.user_type == 2) {
         navigate("/lecturer");
       } else if (response.data.user_type == 3) {
@@ -69,10 +69,11 @@ export default function Login() {
               alt="EduConnect Pro"
             />
             <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
-            Welcome to EduConnect Pro
+              Welcome to EduConnect Pro
             </h2>
             <p className="mt-2 text-sm text-gray-600">
-            Log in with your provided credentials to unlock a world of personalized education and seamless connectivity.
+              Log in with your provided credentials to unlock a world of
+              personalized education and seamless connectivity.
             </p>
           </div>
 
