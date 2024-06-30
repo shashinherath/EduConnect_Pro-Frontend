@@ -82,6 +82,11 @@ export default function Ad_Dashboard() {
           },
         });
         setProfile_pic(response.data.profile_pic);
+        if (response.data.admin.user_type == 2) {
+          navigate("/lecturer");
+        } else if (response.data.admin.user_type == 3) {
+          navigate("/student");
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         navigate("/login");
