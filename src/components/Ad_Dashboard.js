@@ -372,7 +372,7 @@ export default function Ad_Dashboard() {
           <main className="flex-1 min-h-screen bg-gray-200">
             <div className="py-6">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-3xl font-semibold text-gray-900 text-left">
+                <h1 className="text-4xl font-extrabold text-gray-900 text-left">
                   {pageTitle}
                 </h1>
               </div>

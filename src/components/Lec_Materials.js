@@ -271,7 +271,7 @@ export default function Lec_Materials() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-gray-900 text-left">
+      <h1 className="text-4xl font-extrabold text-gray-900 text-left">
         {materialCourseTitle}
       </h1>
       <div className="px-4 sm:px-6 lg:px-8">
