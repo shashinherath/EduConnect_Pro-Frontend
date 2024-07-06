@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSearch } from "./SearchContext";
 
 const labels = [
   { name: "Green", value: 1 },
@@ -22,30 +23,30 @@ const labels = [
   { name: "Blue", value: 4 },
 ];
 
-const colorCodeClasses = {
-  1: "green",
-  2: "red",
-  3: "yellow",
-  4: "blue",
-  default: "bg-gray-50",
-};
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Lec_Dashboard_Main() {
+  const colorCodeClasses = {
+    1: "bg-green-50 text-green-700 text-green-800",
+    2: "bg-red-50 text-red-700 text-red-800",
+    3: "bg-yellow-50 text-yellow-700 text-yellow-800",
+    4: "bg-blue-50 text-blue-700 text-blue-800",
+  };
   const [assigned, setAssigned] = useState({
     name: "",
     avatar: "",
     value: null,
   });
+  const { searchQuery } = useSearch();
   const [labelled, setLabelled] = useState({ name: "Green", value: 1 });
   const [lecturer_id, setLecturer_id] = useState("");
   const [colorCode, setColorCode] = useState("1");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [allAnnouncements, setAllAnnouncements] = useState([]);
+  const [degreeAnnouncements, setDegreeAnnouncements] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
@@ -96,15 +97,34 @@ export default function Lec_Dashboard_Main() {
     };
 
     fetchData();
-  }, [refresh]);
+  }, [lecturer_id, refresh]);
 
   useEffect(() => {
-    setAnnouncements(
+    setDegreeAnnouncements(
       allAnnouncements.filter(
         (announcement) => announcement.lecturer_details.id === lecturer_id
       )
     );
   }, [allAnnouncements, refresh]);
+
+  useEffect(() => {
+    setAnnouncements(
+      degreeAnnouncements.filter((announcement) => {
+        if (searchQuery === "") {
+          return true;
+        } else {
+          return (
+            announcement.title
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            announcement.message
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase())
+          );
+        }
+      })
+    );
+  }, [degreeAnnouncements, searchQuery, refresh]);
 
   const handleAnnouncement = async (e) => {
     e.preventDefault();
@@ -337,23 +357,23 @@ export default function Lec_Dashboard_Main() {
       </form>
       {announcements.map((announcement) => (
         <div
-          className={`rounded-md bg-${
-            colorCodeClasses[announcement.color_code]
-          }-50 p-4 text-left`}
+          className={`rounded-md ${
+            colorCodeClasses[announcement.color_code].split(" ")[0]
+          } p-4 text-left`}
         >
           <div className="flex">
             <div className="ml-3">
               <h3
-                className={`text-sm font-medium text-${
-                  colorCodeClasses[announcement.color_code]
-                }-800`}
+                className={`text-sm font-medium ${
+                  colorCodeClasses[announcement.color_code].split(" ")[2]
+                }`}
               >
                 {announcement.title}
               </h3>
               <div
-                className={`mt-2 text-sm text-${
-                  colorCodeClasses[announcement.color_code]
-                }-700`}
+                className={`mt-2 text-sm ${
+                  colorCodeClasses[announcement.color_code].split(" ")[1]
+                }`}
               >
                 <p>{announcement.message}</p>
               </div>

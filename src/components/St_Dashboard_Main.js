@@ -3,21 +3,18 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useSearch } from "./SearchContext";
 
-const colorCodeClasses = {
-  1: "green",
-  2: "red",
-  3: "yellow",
-  4: "blue",
-  default: "bg-gray-50",
-};
-
 export default function St_Dashboard_Main() {
+  const colorCodeClasses = {
+    1: "bg-green-50 text-green-700 text-green-800",
+    2: "bg-red-50 text-red-700 text-red-800",
+    3: "bg-yellow-50 text-yellow-700 text-yellow-800",
+    4: "bg-blue-50 text-blue-700 text-blue-800",
+  };
   const { searchQuery } = useSearch();
   const [currentDegree, setCurrentDegree] = useState("");
   const [degreeAnnouncements, setDegreeAnnouncements] = useState([]);
   const [allAnnouncements, setAllAnnouncements] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   const token = localStorage.getItem("token");
   const backendUrl = "http://127.0.0.1:8000";
@@ -54,7 +51,7 @@ export default function St_Dashboard_Main() {
     };
 
     fetchData();
-  }, [refresh]);
+  }, [currentDegree]);
 
   useEffect(() => {
     setDegreeAnnouncements(
@@ -62,7 +59,7 @@ export default function St_Dashboard_Main() {
         (announcement) => announcement.lecturer_details.degree === currentDegree
       )
     );
-  }, [allAnnouncements, refresh]);
+  }, [allAnnouncements]);
 
   useEffect(() => {
     setAnnouncements(
@@ -76,12 +73,21 @@ export default function St_Dashboard_Main() {
               .includes(searchQuery.toLowerCase()) ||
             announcement.message
               ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            announcement.lecturer_details.admin.first_name
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            announcement.lecturer_details.admin.last_name
+              ?.toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            announcement.lecturer_details.role
+              ?.toLowerCase()
               .includes(searchQuery.toLowerCase())
           );
         }
       })
     );
-  }, [degreeAnnouncements, searchQuery, refresh]);
+  }, [degreeAnnouncements, searchQuery]);
 
   return (
     <div className="flex flex-col w-full h-full p-4 space-y-4">
@@ -90,9 +96,9 @@ export default function St_Dashboard_Main() {
       </h1>
       {announcements.map((announcement) => (
         <div
-          className={`rounded-md bg-${
-            colorCodeClasses[announcement.color_code]
-          }-50 p-4 text-left`}
+          className={`rounded-md ${
+            colorCodeClasses[announcement.color_code].split(" ")[0]
+          } p-4 text-left`}
         >
           <div className="flex-shrink-0">
             <div className="flex">
@@ -102,9 +108,9 @@ export default function St_Dashboard_Main() {
                 alt="Lecture Pic"
               />
               <h2
-                className={`ml-2 -mt-2 font-extrabold text-${
-                  colorCodeClasses[announcement.color_code]
-                }-700`}
+                className={`ml-2 -mt-2 font-extrabold ${
+                  colorCodeClasses[announcement.color_code].split(" ")[1]
+                }`}
               >
                 {announcement.lecturer_details.role}{" "}
                 {announcement.lecturer_details.admin.first_name}{" "}
@@ -113,16 +119,16 @@ export default function St_Dashboard_Main() {
             </div>
             <div className="ml-10">
               <h3
-                className={`text-sm font-medium text-${
-                  colorCodeClasses[announcement.color_code]
-                }-800`}
+                className={`text-sm font-medium ${
+                  colorCodeClasses[announcement.color_code].split(" ")[2]
+                }`}
               >
                 {announcement.title}
               </h3>
               <div
-                className={`mt-2 text-sm text-${
-                  colorCodeClasses[announcement.color_code]
-                }-700`}
+                className={`mt-2 text-sm ${
+                  colorCodeClasses[announcement.color_code].split(" ")[1]
+                }`}
               >
                 <p>{announcement.message}</p>
               </div>
