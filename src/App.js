@@ -6,7 +6,6 @@ import StudentPortal from "./pages/StudentPortal";
 import Login from "./pages/Login";
 import HomeContent from "./components/H_Content";
 import PageNotFound from "./components/PageNotFound";
-import About from "./components/About";
 import Admin from "./pages/Admin";
 import Ad_Dashboard from "./components/Ad_Dashboard";
 import Ad_Dashboard_Main from "./components/Ad_Dashboard_Main";
@@ -43,7 +42,6 @@ function App() {
         {/* Home */}
         <Route path="/" element={<Home />}>
           <Route index element={<HomeContent />} />
-          <Route path="about" element={<About />} />
         </Route>
 
         {/* Login */}
