@@ -150,11 +150,18 @@ export default function St_Message() {
           </div>
 
           <ul className="overflow-auto h-[25rem]">
-            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600">Chats</h2>
+            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600 text-left">
+              Chats
+            </h2>
             {filteredLecturers.map((lecturer) => (
               <li key={lecturer.id}>
                 <a
-                  className="flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-gray-100 focus:outline-none"
+                  className={`flex items-center px-3 py-2 text-sm transition duration-150 ease-in-out border-b border-gray-300 cursor-pointer hover:bg-orange-100 focus:outline-none 
+                    ${
+                      selectedLecturer && selectedLecturer.id == lecturer.id
+                        ? "bg-orange-200"
+                        : ""
+                    }`}
                   onClick={() => handleLecturerClick(lecturer)}
                 >
                   <img
@@ -203,9 +210,11 @@ export default function St_Message() {
                       }`}
                     >
                       <div
-                        className={`relative max-w-xl px-4 py-2 text-gray-700 bg-${
-                          chat.sender_id == currentUser.id ? "blue" : "orange"
-                        }-200 rounded shadow`}
+                        className={`relative max-w-xl px-4 py-2 text-gray-700 ${
+                          chat.sender_id == currentUser.id
+                            ? "bg-blue-200"
+                            : "bg-orange-200"
+                        } rounded shadow`}
                       >
                         <span className="block text-left">{chat.message}</span>
                       </div>
