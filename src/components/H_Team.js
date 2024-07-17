@@ -1,37 +1,37 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Shashin from "../assets/team_images/Shashin.jpeg";
+import PSDM from "../assets/team_images/PSDM.jpg";
+import Vinushi from "../assets/team_images/Vinushi.jpg";
+import Ranuli from "../assets/team_images/Ranuli.jpg";
+import Janith from "../assets/team_images/janith.png";
 
 const people = [
   {
     name: "Leslie Alexander",
     role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl: Shashin,
   },
   {
     name: "Leslie Alexander",
     role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl: PSDM,
   },
   {
     name: "Leslie Alexander",
     role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl: Vinushi,
   },
   {
     name: "Leslie Alexander",
     role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl: Ranuli,
   },
   {
     name: "Leslie Alexander",
     role: "Co-Founder / CEO",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    imageUrl: Janith,
   },
 ];
 
@@ -58,8 +58,7 @@ export default function H_Team() {
             data-aos-anchor-placement="center-bottom"
             className="mt-6 text-lg leading-8 text-gray-600"
           >
-            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-            elementum enim vitae ullamcorper suspendisse.
+            Savindu.. methana editak danna..
           </p>
         </div>
         <ul
@@ -77,7 +76,7 @@ export default function H_Team() {
                 <img
                   className="h-16 w-16 rounded-full"
                   src={person.imageUrl}
-                  alt=""
+                  alt="team"
                 />
                 <div>
                   <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
