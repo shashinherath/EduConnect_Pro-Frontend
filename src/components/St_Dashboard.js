@@ -32,7 +32,7 @@ const navigation = [
     current: false,
   },
   {
-    name: "AI KGS",
+    name: "EduAI",
     href: "/student/dashboard/ai",
     icon: SparklesIcon,
     current: false,
