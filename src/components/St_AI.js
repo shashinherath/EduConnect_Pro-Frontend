@@ -1,13 +1,16 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function St_AI() {
   const containerRef = useRef(null);
   const [currentUser, setCurrentUser] = useState({});
   const [chatHistory, setChatHistory] = useState([]);
   const [message, setMessage] = useState("");
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [waitingMessage, setWaitingMessage] = useState("");
+  const [isOnline, setIsOnline] = useState(true);
 
   const token = localStorage.getItem("token");
   const backendUrl = "http://127.0.0.1:8000";
@@ -53,10 +56,14 @@ export default function St_AI() {
   const handleSendMessage = async () => {
     if (message.trim() === "") return;
 
+    setWaitingMessage(message);
+
     const formdata = new FormData();
 
     formdata.append("message", message);
     formdata.append("student_id", currentUser.id);
+
+    setMessage("");
 
     try {
       const response = await axios.post(
@@ -70,6 +77,7 @@ export default function St_AI() {
       );
       console.log(response.data);
       setChatHistory([...chatHistory, response.data]);
+      setWaitingMessage("");
       setMessage("");
     } catch (error) {
       console.error("There was an error sending the message!", error);
@@ -84,7 +92,35 @@ export default function St_AI() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatHistory]);
+  }, [chatHistory, waitingMessage]);
+
+  const CodeBlock = ({ children }) => (
+    <pre className="bg-gray-700 p-2 rounded text-white overflow-x-auto my-2">
+      <code>{children}</code>
+    </pre>
+  );
+
+  const checkAccess = async () => {
+    try {
+      const response = await fetch("https://platform.openai.com", {
+        method: "GET",
+        mode: "no-cors",
+      });
+      if (response) {
+        setIsOnline(true);
+      } else {
+        setIsOnline(false);
+      }
+    } catch (error) {
+      setIsOnline(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAccess();
+    const interval = setInterval(checkAccess, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="mx-auto bg-white shadow-md rounded-lg overflow-hidden mt-4">
@@ -113,18 +149,107 @@ export default function St_AI() {
         >
           {chatHistory.map((chat, index) => (
             <div key={index} className="flex flex-col">
-              <div className="chat-message self-end bg-blue-500 text-white max-w-xs rounded-lg px-3 py-1.5 text-sm text-left">
+              <div className="chat-message self-end bg-blue-500 text-white max-w-3xl rounded-lg px-3 py-1.5 text-md text-left my-2">
                 {chat.message}
               </div>
-              <div className="chat-message self-start bg-gray-300 text-gray-800 max-w-xs rounded-lg px-3 py-1.5 text-sm text-left">
-                {chat.response.split("\n").map((line, index) => (
-                  <p className="mb-2" key={index}>
-                    {line}
-                  </p>
-                ))}
+              <div className="chat-message self-start bg-gray-300 text-gray-800 max-w-3xl rounded-lg px-3 py-1.5 text-md text-left my-2">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    ol: ({ node, ...props }) => (
+                      <ol className="list-decimal pl-5" {...props} />
+                    ),
+                    ul: ({ node, ...props }) => (
+                      <ul className="list-disc pl-5" {...props} />
+                    ),
+                    li: ({ node, ...props }) => (
+                      <li className="mb-1" {...props} />
+                    ),
+                    link: ({ node, ...props }) => (
+                      <a className="text-blue-500 hover:underline" {...props} />
+                    ),
+                    table: ({ node, ...props }) => (
+                      <table
+                        className="min-w-full divide-y divide-gray-200"
+                        {...props}
+                      />
+                    ),
+                    thead: ({ node, ...props }) => (
+                      <thead className="bg-gray-100" {...props} />
+                    ),
+                    tbody: ({ node, ...props }) => (
+                      <tbody
+                        className="bg-white divide-y divide-gray-300"
+                        {...props}
+                      />
+                    ),
+                    tr: ({ node, ...props }) => <tr {...props} />,
+                    th: ({ node, ...props }) => (
+                      <th
+                        className="px-6 py-3 text-left font-medium tracking-wider border-r border-gray-300"
+                        {...props}
+                      />
+                    ),
+                    td: ({ node, ...props }) => (
+                      <td
+                        className="px-6 py-4 whitespace-nowrap border-r border-gray-300"
+                        {...props}
+                      />
+                    ),
+                    p: ({ node, ...props }) => (
+                      <p className="mb-1" {...props} />
+                    ),
+                    h1: ({ node, ...props }) => (
+                      <h1 className="text-2xl font-semibold mb-2" {...props} />
+                    ),
+                    h2: ({ node, ...props }) => (
+                      <h2 className="text-xl font-semibold mb-2" {...props} />
+                    ),
+                    h3: ({ node, ...props }) => (
+                      <h3 className="text-lg font-semibold mb-2" {...props} />
+                    ),
+                    h4: ({ node, ...props }) => (
+                      <h4 className="text-md font-semibold mb-2" {...props} />
+                    ),
+                    h5: ({ node, ...props }) => (
+                      <h5 className="text-sm font-semibold mb-2" {...props} />
+                    ),
+                    h6: ({ node, ...props }) => (
+                      <h6 className="text-xs font-semibold mb-2" {...props} />
+                    ),
+                    code: ({ node, inline, className, children, ...props }) => {
+                      const isInline = inline;
+                      const language = className
+                        ? className.replace("language-", "")
+                        : "";
+                      return isInline ? (
+                        <code {...props}>{children}</code>
+                      ) : (
+                        <CodeBlock {...props}>{children}</CodeBlock>
+                      );
+                    },
+                  }}
+                >
+                  {chat.response}
+                </ReactMarkdown>
               </div>
             </div>
           ))}
+          {waitingMessage && (
+            <div className="flex flex-col">
+              <div className="chat-message self-end bg-blue-500 text-white max-w-3xl rounded-lg px-3 py-1.5 text-md text-left my-2">
+                {waitingMessage}
+              </div>
+              <div className="chat-message self-start bg-gray-300 text-gray-800 max-w-3xl rounded-lg px-3 py-1.5 text-md text-left my-2">
+                <div className="text-center mx-auto">
+                  <span className="inline-block w-2 h-2 rounded-full mr-1 bg-gray-800 animate-wave1"></span>
+                  <span className="inline-block w-2 h-2 rounded-full mr-1 bg-gray-800 animate-wave2"></span>
+                  <span className="inline-block w-2 h-2 rounded-full mr-1 bg-gray-800 animate-wave3"></span>
+                  <span className="inline-block">EduAI is typing...</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="px-3 py-2 border-t border-gray-300">
