@@ -9,27 +9,27 @@ import Janith from "../assets/team_images/janith.png";
 
 const people = [
   {
-    name: "Leslie Alexander",
+    name: "Shashin Herath",
     role: "Co-Founder / CEO",
     imageUrl: Shashin,
   },
   {
-    name: "Leslie Alexander",
+    name: "Savindu Dinul",
     role: "Co-Founder / CEO",
     imageUrl: PSDM,
   },
   {
-    name: "Leslie Alexander",
+    name: "Vinushi Ranshila",
     role: "Co-Founder / CEO",
     imageUrl: Vinushi,
   },
   {
-    name: "Leslie Alexander",
+    name: "Ranuli Jayanima",
     role: "Co-Founder / CEO",
     imageUrl: Ranuli,
   },
   {
-    name: "Leslie Alexander",
+    name: "Janith Chathuranga",
     role: "Co-Founder / CEO",
     imageUrl: Janith,
   },
