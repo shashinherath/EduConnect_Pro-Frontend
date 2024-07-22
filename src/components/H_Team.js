@@ -10,27 +10,27 @@ import Janith from "../assets/team_images/janith.png";
 const people = [
   {
     name: "Shashin Herath",
-    role: "Co-Founder / CEO",
+    role: "Project Leader",
     imageUrl: Shashin,
   },
   {
     name: "Savindu Dinul",
-    role: "Co-Founder / CEO",
+    role: "Technical Architect",
     imageUrl: PSDM,
   },
   {
     name: "Vinushi Ranshila",
-    role: "Co-Founder / CEO",
+    role: "Intergration Manager",
     imageUrl: Vinushi,
   },
   {
     name: "Ranuli Jayanima",
-    role: "Co-Founder / CEO",
+    role: "Quality Analyst",
     imageUrl: Ranuli,
   },
   {
     name: "Janith Chathuranga",
-    role: "Co-Founder / CEO",
+    role: "Process Designer",
     imageUrl: Janith,
   },
 ];
