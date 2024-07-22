@@ -9,28 +9,28 @@ import Janith from "../assets/team_images/janith.png";
 
 const people = [
   {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
+    name: "Shashin Herath",
+    role: "Project Leader",
     imageUrl: Shashin,
   },
   {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
+    name: "Savindu Dinul",
+    role: "Technical Architect",
     imageUrl: PSDM,
   },
   {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
+    name: "Vinushi Ranshila",
+    role: "Intergration Manager",
     imageUrl: Vinushi,
   },
   {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
+    name: "Ranuli Jayanima",
+    role: "Quality Analyst",
     imageUrl: Ranuli,
   },
   {
-    name: "Leslie Alexander",
-    role: "Co-Founder / CEO",
+    name: "Janith Chathuranga",
+    role: "Process Designer",
     imageUrl: Janith,
   },
 ];
@@ -58,7 +58,7 @@ export default function H_Team() {
             data-aos-anchor-placement="center-bottom"
             className="mt-6 text-lg leading-8 text-gray-600"
           >
-            Savindu.. methana editak danna..
+            Our leadership team is made up of experienced educators and tech experts dedicated to transforming education. They guide EduConnect Pro in creating an engaging and innovative learning platform for students and educators.
           </p>
         </div>
         <ul
