@@ -58,7 +58,7 @@ export default function H_Team() {
             data-aos-anchor-placement="center-bottom"
             className="mt-6 text-lg leading-8 text-gray-600"
           >
-            Savindu.. methana editak danna..
+            Our leadership team is made up of experienced educators and tech experts dedicated to transforming education. They guide EduConnect Pro in creating an engaging and innovative learning platform for students and educators.
           </p>
         </div>
         <ul
