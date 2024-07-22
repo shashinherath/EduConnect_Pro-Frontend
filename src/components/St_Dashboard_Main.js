@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSearch } from "./SearchContext";
-import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
 import {
   ChatBubbleLeftIcon,
   ClipboardDocumentListIcon,
