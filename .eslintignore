@@ -1,0 +1,6 @@
+# Ignore all files in the 'build' directory
+build/
+
+# Ignore a specific files
+src/components/
+src/pages/
