@@ -11,6 +11,12 @@ import {
   UserCircleIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/20/solid";
+import {
+  ChatBubbleLeftIcon,
+  ClipboardDocumentCheckIcon,
+  InboxIcon,
+  FingerPrintIcon,
+} from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -39,6 +45,37 @@ export default function Lec_Dashboard_Main() {
     avatar: "",
     value: null,
   });
+  const dashCard = [
+    {
+      name: "Courses",
+      icon: InboxIcon,
+      href: "/lecturer/dashboard/courses",
+      members: 16,
+      bgColor: "bg-pink-600",
+    },
+    {
+      name: "Message",
+      icon: ChatBubbleLeftIcon,
+      href: "/lecturer/dashboard/message",
+      members: 12,
+      bgColor: "bg-purple-600",
+    },
+    {
+      name: "Attendance",
+      icon: FingerPrintIcon,
+      href: "/lecturer/dashboard/attendance",
+      members: 16,
+      bgColor: "bg-yellow-500",
+    },
+    {
+      name: "Assessment",
+      icon: ClipboardDocumentCheckIcon,
+      href: "/lecturer/dashboard/assessment",
+      members: 8,
+      bgColor: "bg-green-500",
+    },
+  ];
+
   const { searchQuery } = useSearch();
   const [labelled, setLabelled] = useState({ name: "Green", value: 1 });
   const [lecturer_id, setLecturer_id] = useState("");
@@ -185,6 +222,30 @@ export default function Lec_Dashboard_Main() {
 
   return (
     <div className="flex flex-col w-full h-full p-4 space-y-4">
+      <ul
+        role="list"
+        className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4"
+      >
+        {dashCard.map((card) => (
+          <Link to={card.href} className="hover:animate-bounce">
+            <li
+              key={card.name}
+              className="col-span-1 flex rounded-md shadow-sm text-left"
+            >
+              <div
+                className={`flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white ${card.bgColor} py-5`}
+              >
+                <card.icon className="h-6 w-6" aria-hidden="true" />
+              </div>
+              <div className="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
+                <div className="flex-1 truncate px-4 py-2 text-sm">
+                  <p className="font-medium text-gray-900">{card.name}</p>
+                </div>
+              </div>
+            </li>
+          </Link>
+        ))}
+      </ul>
       <form method="post" className="relative">
         <h1 className="m-2 text-2xl text-left font-bold text-gray-500">
           Send announcement
@@ -339,7 +400,7 @@ export default function Lec_Dashboard_Main() {
               )}
             </Listbox>
           </div>
-          <div className="flex items-center justify-end space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3">
+          <div className="flex items-center justify-end space-x-3 px-2 py-2 sm:px-3">
             <div className="flex-shrink-0">
               <button
                 type="button"
