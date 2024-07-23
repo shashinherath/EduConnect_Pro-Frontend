@@ -2,5 +2,4 @@
 build/
 
 # Ignore a specific files
-src/components/
-src/pages/
+src/
