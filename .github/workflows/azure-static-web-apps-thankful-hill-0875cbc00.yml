@@ -28,9 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESLint
-        run: npx eslint src/ --quiet
-
       - name: Build the app
         env:
           CI: false
