@@ -69,7 +69,7 @@ export default function Ad_Dashboard() {
   const { searchQuery, setSearchQuery } = useSearch();
   const location = useLocation();
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
   const [profile_pic, setProfile_pic] = useState("");
 

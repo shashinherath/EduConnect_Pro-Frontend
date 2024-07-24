@@ -65,7 +65,7 @@ export default function Lec_Materials() {
   const [fileLink, setFileLink] = useState("");
 
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   function handleFileChange(e) {
     const tempFile = e.target.files[0];

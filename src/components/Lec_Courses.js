@@ -14,7 +14,7 @@ export default function Lec_Courses() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchData = async () => {

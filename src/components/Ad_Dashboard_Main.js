@@ -18,7 +18,7 @@ export default function Ad_Dashboard_Main() {
   const [allStudents, setAllStudents] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [countAllAdmins, setCountAllAdmins] = useState(0);
   const [countAllLecturers, setCountAllLecturers] = useState(0);

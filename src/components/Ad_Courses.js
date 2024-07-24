@@ -31,10 +31,11 @@ export default function Ad_Students() {
   const [degree, setDegree] = useState("ICT");
   const [image, setImage] = useState(null);
   const [imageUpdated, setImageUpdated] = useState(null);
-  const default_img = "http://127.0.0.1:8000/media/course_images/default.png";
+  const default_img =
+    process.env.REACT_APP_BACKEND_URL + "/media/course_images/default.png";
 
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const fileInputRef = React.useRef(null);
   const [profilePicUrl, setProfilePicUrl] = useState("");
 

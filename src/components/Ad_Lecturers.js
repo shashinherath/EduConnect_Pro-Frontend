@@ -37,7 +37,7 @@ export default function Ad_Lecturers() {
   const [profile_picUpdated, setProfile_picUpdated] = useState(null);
 
   const token = localStorage.getItem("token");
-  const backendUrl = "http://127.0.0.1:8000";
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const fileInputRef = React.useRef(null);
   const [profilePicUrl, setProfilePicUrl] = useState("");
 
