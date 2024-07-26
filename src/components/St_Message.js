@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Message_logo from "../assets/logo/Owl only Transparant.png";
 
 export default function St_Message() {
   const containerRef = useRef(null);
@@ -150,7 +151,7 @@ export default function St_Message() {
           </div>
 
           <ul className="overflow-auto h-[25rem]">
-            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600 text-left">
+            <h2 className="my-2 mb-2 ml-2 text-lg text-gray-600 text-left font-extrabold">
               Chats
             </h2>
             {filteredLecturers.map((lecturer) => (
@@ -250,8 +251,14 @@ export default function St_Message() {
               </div>
             </div>
           ) : (
-            <div className="w-full h-[24rem] flex items-center justify-center text-gray-500">
-              Select a lecturer to start chatting
+            <div className="flex-col w-full h-[24rem] flex items-center justify-center text-gray-500">
+              <img
+                src={Message_logo}
+                alt="Message Logo"
+                className="h-10 w-10 filter grayscale"
+              />
+              <p className="font-bold">Message</p>
+              <p className="mt-2">Select a lecturer to start chatting</p>
             </div>
           )}
         </div>

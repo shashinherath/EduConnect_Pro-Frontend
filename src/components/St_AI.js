@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import EduAI_logo from "../assets/logo/Owl only Transparant.png";
 
 export default function St_AI() {
   const containerRef = useRef(null);
@@ -250,6 +251,23 @@ export default function St_AI() {
               </div>
             </div>
           )}
+          {waitingMessage.trim() !== "" ||
+            (chatHistory.length === 0 && (
+              <div className="flex flex-col items-center justify-center h-full text-gray-500">
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={EduAI_logo}
+                    alt="EduAI Logo"
+                    className="h-8 w-8 filter grayscale"
+                  />
+                  <h1 className="text-3xl font-extrabold">EduAI</h1>
+                </div>
+                <p className="font-bold"> powered by OpenAI</p>
+                <p className="mt-3">
+                  Explore knowledge by interacting with our AI chat box below.
+                </p>
+              </div>
+            ))}
         </div>
 
         <div className="px-3 py-2 border-t border-gray-300">
