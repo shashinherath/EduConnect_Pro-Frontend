@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import {
-  ArrowPathIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
+  UserIcon,
+  ChatBubbleBottomCenterTextIcon,
+  PresentationChartBarIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -13,25 +13,29 @@ const features = [
     name: "Personalized Learning",
     description:
       "Our AI-driven system tailors learning experiences to individual needs, providing personalized educational journeys that enhance understanding and retention.",
-    icon: CloudArrowUpIcon,
+    icon: UserIcon,
+    bgColor: "bg-pink-600",
   },
   {
     name: "Seamless Communication",
     description:
       "Stay connected with features like Real-Time Location Tracking, Availability Status, and an Integrated Chat Service, ensuring smooth and instant communication between students and educators.",
-    icon: LockClosedIcon,
+    icon: ChatBubbleBottomCenterTextIcon,
+    bgColor: "bg-purple-600",
   },
   {
     name: "Resource Accessibility",
     description:
       "Easily share lecture materials, submit assignments, and access a vast resource repository. Our platform simplifies educational processes, making resources readily available to all users.",
-    icon: ArrowPathIcon,
+    icon: PresentationChartBarIcon,
+    bgColor: "bg-yellow-500",
   },
   {
     name: "Student Support",
     description:
       "Benefit from Virtual Office Hours, Feedback and Evaluation tools, and Virtual Labs designed to offer extensive support and foster a conducive learning environment.",
-    icon: FingerPrintIcon,
+    icon: QuestionMarkCircleIcon,
+    bgColor: "bg-green-500",
   },
 ];
 
@@ -73,7 +77,9 @@ export default function H_Content() {
                 className="relative pl-16"
               >
                 <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <div
+                    className={`absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg ${feature.bgColor}`}
+                  >
                     <feature.icon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"
