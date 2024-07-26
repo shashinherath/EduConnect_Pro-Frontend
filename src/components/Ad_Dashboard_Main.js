@@ -31,8 +31,7 @@ export default function Ad_Dashboard_Main() {
       name: "Admins",
       stat: countAllAdmins,
       icon: UserIcon,
-      change: "122",
-      changeType: "increase",
+      bgColor: "bg-pink-600",
       path: "/admin/dashboard/admins",
     },
     {
@@ -40,8 +39,7 @@ export default function Ad_Dashboard_Main() {
       name: "Lecturers",
       stat: countAllLecturers,
       icon: UsersIcon,
-      change: "0",
-      changeType: "increase",
+      bgColor: "bg-purple-600",
       path: "/admin/dashboard/lecturers",
     },
     {
@@ -49,8 +47,7 @@ export default function Ad_Dashboard_Main() {
       name: "Students",
       stat: countAllStudents,
       icon: UserGroupIcon,
-      change: "0",
-      changeType: "decrease",
+      bgColor: "bg-yellow-500",
       path: "/admin/dashboard/students",
     },
     {
@@ -58,8 +55,7 @@ export default function Ad_Dashboard_Main() {
       name: "Courses",
       stat: countAllCourses,
       icon: InboxIcon,
-      change: "3.2%",
-      changeType: "decrease",
+      bgColor: "bg-green-500",
       path: "/admin/dashboard/courses",
     },
   ];
@@ -116,7 +112,7 @@ export default function Ad_Dashboard_Main() {
             className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6"
           >
             <dt>
-              <div className="absolute rounded-md bg-indigo-500 p-3">
+              <div className={`absolute rounded-md ${item.bgColor} p-3`}>
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
               <p className="ml-16 truncate text-sm font-medium text-gray-500 text-left">
