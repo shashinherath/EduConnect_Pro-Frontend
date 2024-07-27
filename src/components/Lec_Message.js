@@ -204,8 +204,10 @@ export default function Lec_Message() {
                   {filteredChatHistory.map((chat) => (
                     <li
                       key={chat.id}
-                      className={`flex justify-${
-                        chat.sender_id == currentUser.id ? "end" : "start"
+                      className={`flex ${
+                        chat.sender_id == currentUser.id
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
                       <div
