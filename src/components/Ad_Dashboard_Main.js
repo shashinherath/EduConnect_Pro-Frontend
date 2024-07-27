@@ -7,10 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import ApexCharts from "apexcharts";
 
 export default function Ad_Dashboard_Main() {
   const [allAdmins, setAllAdmins] = useState([]);
@@ -59,6 +56,7 @@ export default function Ad_Dashboard_Main() {
       path: "/admin/dashboard/courses",
     },
   ];
+  const [chartOptions, setChartOptions] = useState(getInitialChartOptions());
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,15 +99,37 @@ export default function Ad_Dashboard_Main() {
     setCountAllLecturers(allLecturers.length);
     setCountAllStudents(allStudents.length);
     setCountAllCourses(allCourses.length);
+
+    const updatedChartOptions = getInitialChartOptions([
+      allAdmins.length,
+      allLecturers.length,
+      allStudents.length,
+      allCourses.length,
+    ]);
+
+    setChartOptions(updatedChartOptions);
   }, [allAdmins, allLecturers, allStudents, allCourses]);
+
+  useEffect(() => {
+    if (typeof ApexCharts !== "undefined") {
+      const chart = new ApexCharts(
+        document.getElementById("donut-chart"),
+        chartOptions
+      );
+      chart.render();
+      return () => {
+        chart.destroy();
+      };
+    }
+  }, [chartOptions]);
 
   return (
     <div>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-5 flex flex-wrap gap-5">
         {stats.map((item) => (
           <div
             key={item.id}
-            className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6"
+            className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6 w-full md:w-auto lg:flex-grow"
           >
             <dt>
               <div className={`absolute rounded-md ${item.bgColor} p-3`}>
@@ -139,6 +159,108 @@ export default function Ad_Dashboard_Main() {
           </div>
         ))}
       </dl>
+      <div className="flex justify-center">
+        <div className="w-full bg-white rounded-lg shadow p-4 md:p-6 mt-5 h-[350px]">
+          <div className="py-6" id="donut-chart"></div>
+        </div>
+      </div>
     </div>
   );
 }
+
+const getInitialChartOptions = (counts = [0, 0, 0, 0]) => {
+  const bgColors = {
+    "bg-pink-600": "#ec4899",
+    "bg-purple-600": "#8b5cf6",
+    "bg-yellow-500": "#eab308",
+    "bg-green-500": "#22c55e",
+  };
+
+  const chartColors = [
+    bgColors["bg-pink-600"],
+    bgColors["bg-purple-600"],
+    bgColors["bg-yellow-500"],
+    bgColors["bg-green-500"],
+  ];
+  return {
+    series: counts,
+    colors: chartColors,
+    chart: {
+      height: 320,
+      width: "100%",
+      type: "donut",
+    },
+    stroke: {
+      colors: ["transparent"],
+      lineCap: "",
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontFamily: "Inter, sans-serif",
+              offsetY: 20,
+            },
+            total: {
+              showAlways: true,
+              show: true,
+              label: "All Stats",
+              fontFamily: "Inter, sans-serif",
+              formatter: function (w) {
+                const sum = w.globals.seriesTotals.reduce((a, b) => {
+                  return a + b;
+                }, 0);
+                return sum;
+              },
+            },
+            value: {
+              show: true,
+              fontFamily: "Inter, sans-serif",
+              offsetY: -20,
+              formatter: function (value) {
+                return value;
+              },
+            },
+          },
+          size: "80%",
+        },
+      },
+    },
+    grid: {
+      padding: {
+        top: -2,
+      },
+    },
+    labels: ["Admins", "Lecturers", "Students", "Courses"],
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      position: "bottom",
+      fontFamily: "Inter, sans-serif",
+    },
+    yaxis: {
+      labels: {
+        formatter: function (value) {
+          return value;
+        },
+      },
+    },
+    xaxis: {
+      labels: {
+        formatter: function (value) {
+          return value;
+        },
+      },
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+  };
+};
