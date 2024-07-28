@@ -66,7 +66,7 @@ export default function Lec_UserProfile() {
       formData.append("degree", degree);
       formData.append("role", role);
       formData.append("email", email);
-      formData.append("user_type", 1);
+      formData.append("user_type", 2);
 
       if (password !== "") {
         formData.append("password", password);
