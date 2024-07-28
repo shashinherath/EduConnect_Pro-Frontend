@@ -66,7 +66,7 @@ export default function St_UserProfile() {
       formData.append("degree", degree);
       formData.append("phone_number", phone_number);
       formData.append("email", email);
-      formData.append("user_type", 1);
+      formData.append("user_type", 3);
 
       if (password !== "") {
         formData.append("password", password);
