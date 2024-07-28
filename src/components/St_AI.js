@@ -119,7 +119,7 @@ export default function St_AI() {
 
   useEffect(() => {
     checkAccess();
-    const interval = setInterval(checkAccess, 30000);
+    const interval = setInterval(checkAccess, 5000);
     return () => clearInterval(interval);
   }, []);
 
