@@ -3,6 +3,9 @@
 
 This is the frontend of **EduConnect Pro**, a modern Learning Management System (LMS) designed to streamline education by offering a seamless connection between students, educators, and educational resources. Built using **React**, this frontend interacts with the backend API to deliver a smooth and responsive user experience.
 
+## Demo Video
+[![Watch the video](https://github.com/user-attachments/assets/5db612f3-9b76-4433-b981-fe61a486c9bf)](https://youtu.be/m0UnjVTng3A?si=lwlOf4u8r0sGU4v2)
+
 ## Features
 
 - **Student and Educator Portals**: Separate interfaces tailored for students and educators.
